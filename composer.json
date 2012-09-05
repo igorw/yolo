@@ -1,0 +1,24 @@
+{
+    "minimum-stability": "dev",
+    "name": "igorw/yolo",
+    "description": "The microframework with swag.",
+    "keywords": ["useless", "microframework", "academic"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Wiedler",
+            "email": "igor@wiedler.ch"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/config": "2.1.*",
+        "symfony/dependency-injection": "2.1.*",
+        "symfony/http-kernel": "2.1.*",
+        "symfony/routing": "2.1.*",
+        "symfony/yaml": "2.1.*"
+    },
+    "autoload": {
+        "psr-0": { "Yolo": "src" }
+    }
+}

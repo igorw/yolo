@@ -1,0 +1,59 @@
+services:
+    front_controller:
+        class: Yolo\FrontController
+        arguments:
+            - @kernel
+
+    kernel:
+        class: Symfony\Component\HttpKernel\HttpKernel
+        arguments:
+            - @dispatcher
+            - @controller_resolver
+
+    dispatcher:
+        class: Symfony\Component\EventDispatcher\EventDispatcher
+
+    controller_resolver:
+        class: Symfony\Component\HttpKernel\Controller\ControllerResolver
+
+    route_builder:
+        class: Yolo\RouteBuilder
+        arguments:
+            - @routes
+
+    routes:
+        class: Symfony\Component\Routing\RouteCollection
+
+    url_matcher:
+        class: Symfony\Component\Routing\Matcher\UrlMatcher
+        arguments:
+            - @routes
+            - @request_context
+
+    request_context:
+        class: Symfony\Component\Routing\RequestContext
+
+    exception_handler:
+        class: Yolo\ExceptionHandler
+
+    listener.router:
+        class: Symfony\Component\HttpKernel\EventListener\RouterListener
+        arguments:
+            - @url_matcher
+            - @request_context
+        tags:
+            - { name: event_subscriber }
+
+    listener.response:
+        class: Symfony\Component\HttpKernel\EventListener\ResponseListener
+        arguments:
+            - UTF-8
+        tags:
+            - { name: event_subscriber }
+
+    listener.exception:
+        class: Symfony\Component\HttpKernel\EventListener\ExceptionListener
+        arguments:
+            - [@exception_handler, 'handle']
+        tags:
+            - { name: event_subscriber }
