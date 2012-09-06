@@ -4,7 +4,9 @@ namespace Yolo;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Compiler\Compiler;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Yolo\Compiler\EventSubscriberPass;
 
 class Factory
 {
@@ -14,12 +16,9 @@ class Factory
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.yml');
 
-        $dispatcher = $container->get('dispatcher');
-        $subscriberIds = $container->findTaggedServiceIds('event_subscriber');
-        foreach ($subscriberIds as $subscriberId => $tag) {
-            $subscriber = $container->get($subscriberId);
-            $dispatcher->addSubscriber($subscriber);
-        }
+        $compiler = new Compiler();
+        $compiler->addPass(new EventSubscriberPass());
+        $compiler->compile($container);
 
         return $container;
     }
