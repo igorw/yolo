@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "igorw/yolo",
     "description": "The microframework with swag.",
     "keywords": ["useless", "microframework", "academic", "swag"],

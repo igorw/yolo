@@ -1,5 +1,5 @@
 {
-    "hash": "abedf45fb628694846af8a0aaef3fa9c",
+    "hash": "e46421d3a3f84713eea23e3765964a0e",
     "packages": [
         {
             "package": "symfony/config",
@@ -36,7 +36,7 @@
     "aliases": [
 
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [
 
     ]
