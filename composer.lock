@@ -19,9 +19,7 @@
         },
         {
             "package": "symfony/http-kernel",
-            "version": "2.1.x-dev",
-            "source-reference": "ec5cdb100c20537e9d806facd4d121c985658e8b",
-            "commit-date": "1346926323"
+            "version": "v2.1.0"
         },
         {
             "package": "symfony/routing",
