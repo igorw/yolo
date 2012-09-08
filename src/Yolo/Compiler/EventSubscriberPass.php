@@ -12,8 +12,8 @@ class EventSubscriberPass implements CompilerPassInterface
     {
         $definition = $container->getDefinition('dispatcher');
 
-        foreach ($container->findTaggedServiceIds('event_subscriber') as $subscriberId => $tag) {
-            $definition->addMethodCall('addSubscriber', array(new Reference($subscriberId)));
+        foreach ($container->findTaggedServiceIds('kernel.event_subscriber') as $id => $attributes) {
+            $definition->addMethodCall('addSubscriber', array(new Reference($id)));
         }
     }
 }

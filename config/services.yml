@@ -42,18 +42,18 @@ services:
             - @url_matcher
             - @request_context
         tags:
-            - { name: event_subscriber }
+            - { name: kernel.event_subscriber }
 
     listener.response:
         class: Symfony\Component\HttpKernel\EventListener\ResponseListener
         arguments:
             - UTF-8
         tags:
-            - { name: event_subscriber }
+            - { name: kernel.event_subscriber }
 
     listener.exception:
         class: Symfony\Component\HttpKernel\EventListener\ExceptionListener
         arguments:
             - [@exception_handler, 'handle']
         tags:
-            - { name: event_subscriber }
+            - { name: kernel.event_subscriber }
