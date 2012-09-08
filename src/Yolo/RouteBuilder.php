@@ -36,6 +36,6 @@ class RouteBuilder
 
     public function addRoute($name, $path, $controller, $method)
     {
-        $this->routes->add($name, new Route($path, array('_controller' => $controller), array('_method' => $method)));
+        $this->routes->add($name, new Route($path, ['_controller' => $controller], ['_method' => $method]));
     }
 }
