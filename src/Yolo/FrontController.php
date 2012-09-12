@@ -18,8 +18,10 @@ class FrontController
     public function run()
     {
         $request = Request::createFromGlobals();
-        $response = $this->kernel->handle($request);
-        $response->send();
+        $response = $this->kernel
+            ->handle($request)
+            ->prepare($request)
+            ->send();
 
         if ($this->kernel instanceof TerminableInterface) {
             $this->kernel->terminate($request, $response);
