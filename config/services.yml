@@ -2,9 +2,9 @@ services:
     front_controller:
         class: Yolo\FrontController
         arguments:
-            - @kernel
+            - @http_kernel
 
-    kernel:
+    http_kernel:
         class: Symfony\Component\HttpKernel\HttpKernel
         arguments:
             - @dispatcher
