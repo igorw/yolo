@@ -10,21 +10,16 @@ use Yolo\Compiler\EventSubscriberPass;
 
 class Factory
 {
-    public static function createContainer(array $parameters = null)
+    public static function createContainer(array $parameters = [])
     {
         $container = new ContainerBuilder();
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.yml');
 
-        if ($parameters) {
-            foreach ($parameters as $name => $value) {
-                $container->setParameter($name, $value);
-            }
-        }
+        $container->getParameterBag()->add($parameters);
 
-        $compiler = new Compiler();
-        $compiler->addPass(new EventSubscriberPass());
-        $compiler->compile($container);
+        $container->getCompiler()->addPass(new EventSubscriberPass());
+        $container->compile();
 
         return $container;
     }
