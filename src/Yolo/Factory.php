@@ -16,7 +16,7 @@ class Factory
 
         $container->getParameterBag()->add($parameters);
 
-        $container->getCompiler()->addPass(new EventSubscriberPass());
+        $container->addCompilerPass(new EventSubscriberPass());
         $container->compile();
 
         return $container;
