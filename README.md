@@ -9,6 +9,8 @@ Anatomy" talk to demonstrate more clearly the distinct responsibilities of
 different parts of the `Silex\Application` class. Think of it as an academic
 version of silex that can be cut up for inspection, fun and experimentation.
 
+[Watch the video recording of the talk.](https://vimeo.com/51201498)
+
 You will probably want to continue using
 [silex](https://github.com/fabpot/Silex) for your work.
 
