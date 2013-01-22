@@ -10,6 +10,18 @@ services:
             - @dispatcher
             - @controller_resolver
 
+    logger:
+        class: Monolog\Logger
+        arguments:
+            - 'name'
+        calls:
+            - [pushHandler, [@logger.stream_handler]]
+
+    logger.stream_handler:
+        class: Monolog\Handler\StreamHandler
+        arguments:
+            - 'php://stdout'
+
     dispatcher:
         class: Symfony\Component\EventDispatcher\EventDispatcher
 
@@ -41,6 +53,7 @@ services:
         arguments:
             - @url_matcher
             - @request_context
+            - @logger
         tags:
             - { name: kernel.event_subscriber }
 
