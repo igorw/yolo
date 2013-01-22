@@ -5,7 +5,9 @@ require __DIR__.'/../vendor/autoload.php';
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$container = Yolo\Factory::createContainer();
+$container = Yolo\Factory::createContainer([
+    'debug' => true,
+]);
 $builder = $container->get('route_builder');
 
 $builder->get('hello', '/', function (Request $request) {
