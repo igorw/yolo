@@ -36,8 +36,13 @@ services:
     request_context:
         class: Symfony\Component\Routing\RequestContext
 
+    exception_controller:
+        class: Yolo\ExceptionController
+        arguments:
+            - @exception_handler
+
     exception_handler:
-        class: Yolo\ExceptionHandler
+        class: Symfony\Component\HttpKernel\Debug\ExceptionHandler
         arguments:
             - %debug%
 
@@ -59,6 +64,6 @@ services:
     listener.exception:
         class: Symfony\Component\HttpKernel\EventListener\ExceptionListener
         arguments:
-            - [@exception_handler, 'handle']
+            - [@exception_controller, 'handle']
         tags:
             - { name: kernel.event_subscriber }
