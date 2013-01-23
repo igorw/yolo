@@ -1,7 +1,0 @@
-digraph sc {
-	graph [ratio=compress];
-	node [label="\N", fontsize=11, fontname=Arial, shape=record];
-	edge [fontsize=9, fontname=Arial, color=grey, arrowhead=open, arrowsize="0.5"];
-	graph [bb="0,0,308,38"];
-	node_service_container [label="service_container\nSymfony\\Component\\DependencyInjection\\ContainerBuilder\n", fillcolor="#9999ff", style=filled, pos="154,19", rects="-0.75171,1,308.75,37", width="4.2882", height="0.51389"];
-}
