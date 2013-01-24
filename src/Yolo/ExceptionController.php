@@ -5,13 +5,19 @@ namespace Yolo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Debug\ExceptionHandler as DebugExceptionHandler;
 
-class ExceptionHandler
+class ExceptionController
 {
+    private $handler;
+
+    public function __construct(DebugExceptionHandler $handler)
+    {
+        $this->handler = $handler;
+    }
+
     public function handle(Request $request)
     {
-        $handler = new DebugExceptionHandler();
         $exception = $request->get('exception');
 
-        return $handler->createResponse($exception);
+        return $this->handler->createResponse($exception);
     }
 }
