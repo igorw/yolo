@@ -14,6 +14,12 @@ version of silex that can be cut up for inspection, fun and experimentation.
 You will probably want to continue using
 [silex](https://github.com/fabpot/Silex) for your work.
 
+## How is this different from silex?
+
+* More pure, less usable.
+* symfony/dependency-injection instead of pimple
+* more animated gif
+
 ## But I want to use it in production
 
 Feel free to use it. If it fits your needs, that is perfectly fine.
