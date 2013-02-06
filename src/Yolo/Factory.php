@@ -12,9 +12,12 @@ class Factory
     {
         $container = new ContainerBuilder();
         $container->registerExtension(new YoloExtension());
-        $container->loadFromExtension('yolo');
 
         $container->getParameterBag()->add($parameters);
+
+        foreach ($container->getExtensions() as $extension) {
+            $container->loadFromExtension($extension->getAlias());
+        }
 
         $container->addCompilerPass(new EventSubscriberPass());
         $container->compile();
