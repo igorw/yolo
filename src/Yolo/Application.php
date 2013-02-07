@@ -14,6 +14,11 @@ class Application
         $this->container = $container ?: createContainer();
     }
 
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
     public function get($name, $path, $controller)
     {
         $this->container->get('route_builder')->get($name, $path, $controller);
