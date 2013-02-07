@@ -17,13 +17,6 @@ services:
         class: Monolog\Logger
         arguments:
             - 'name'
-        calls:
-            - [pushHandler, [@logger.stream_handler]]
-
-    logger.stream_handler:
-        class: Monolog\Handler\StreamHandler
-        arguments:
-            - 'php://stdout'
 
     dispatcher:
         class: Symfony\Component\EventDispatcher\EventDispatcher
