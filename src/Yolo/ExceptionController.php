@@ -7,6 +7,8 @@ use Symfony\Component\HttpKernel\Debug\ExceptionHandler as DebugExceptionHandler
 
 class ExceptionController
 {
+    private $handler;
+
     public function __construct(DebugExceptionHandler $handler)
     {
         $this->handler = $handler;
