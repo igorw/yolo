@@ -11,7 +11,7 @@ $app->get('hello', '/', function (Request $request) {
     return new Response("Hallo welt, got swag yo!\n");
 });
 
-$app->get('error', '/error', function (Request $request) {
+$app->get('explosion', '/explosion', function (Request $request) {
     throw new \Exception('Holy crap, explosion!');
 });
 
