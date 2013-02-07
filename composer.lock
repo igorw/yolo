@@ -1,5 +1,5 @@
 {
-    "hash": "424de08c3fa351c8b3936ca6b186d6d8",
+    "hash": "817ea1c2d24f1005bdd5da9901bff65c",
     "packages": [
         {
             "name": "psr/log",
@@ -41,23 +41,23 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.2.0-BETA2",
+            "version": "v2.2.0-RC1",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config",
-                "reference": "v2.2.0-BETA2"
+                "reference": "v2.2.0-RC1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Config/archive/v2.2.0-BETA2.zip",
-                "reference": "v2.2.0-BETA2",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/v2.2.0-RC1",
+                "reference": "v2.2.0-RC1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-17 15:25:59",
+            "time": "2013-01-31 18:27:04",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -88,17 +88,17 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v2.2.0-BETA2",
+            "version": "v2.2.0-RC1",
             "target-dir": "Symfony/Component/DependencyInjection",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DependencyInjection",
-                "reference": "v2.2.0-BETA2"
+                "reference": "v2.2.0-RC1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/DependencyInjection/archive/v2.2.0-BETA2.zip",
-                "reference": "v2.2.0-BETA2",
+                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/v2.2.0-RC1",
+                "reference": "v2.2.0-RC1",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
                 "symfony/config": "2.2.*",
                 "symfony/yaml": "2.2.*"
             },
-            "time": "2013-01-23 20:21:00",
+            "time": "2013-02-04 12:46:31",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -143,17 +143,17 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.2.0-BETA2",
+            "version": "v2.2.0-RC1",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher",
-                "reference": "v2.2.0-BETA2"
+                "reference": "v2.2.0-RC1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/EventDispatcher/archive/v2.2.0-BETA2.zip",
-                "reference": "v2.2.0-BETA2",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/v2.2.0-RC1",
+                "reference": "v2.2.0-RC1",
                 "shasum": ""
             },
             "require": {
@@ -197,23 +197,23 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.2.0-BETA2",
+            "version": "v2.2.0-RC1",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation",
-                "reference": "v2.2.0-BETA2"
+                "reference": "v2.2.0-RC1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpFoundation/archive/v2.2.0-BETA2.zip",
-                "reference": "v2.2.0-BETA2",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/v2.2.0-RC1",
+                "reference": "v2.2.0-RC1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-21 16:56:55",
+            "time": "2013-02-04 12:41:52",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -247,17 +247,17 @@
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v2.2.0-BETA2",
+            "version": "v2.2.0-RC1",
             "target-dir": "Symfony/Component/HttpKernel",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel",
-                "reference": "v2.2.0-BETA2"
+                "reference": "v2.2.0-RC1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/HttpKernel/archive/v2.2.0-BETA2.zip",
-                "reference": "v2.2.0-BETA2",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/v2.2.0-RC1",
+                "reference": "v2.2.0-RC1",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 "symfony/dependency-injection": "2.2.*",
                 "symfony/finder": "2.2.*"
             },
-            "time": "2013-01-24 07:15:19",
+            "time": "2013-02-05 07:31:53",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -316,35 +316,35 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v2.2.0-BETA2",
+            "version": "v2.2.0-RC1",
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing",
-                "reference": "v2.2.0-BETA2"
+                "reference": "v2.2.0-RC1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Routing/archive/v2.2.0-BETA2.zip",
-                "reference": "v2.2.0-BETA2",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/v2.2.0-RC1",
+                "reference": "v2.2.0-RC1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "doctrine/common": ">=2.2,<2.4-dev",
+                "doctrine/common": ">=2.2,<3.0",
                 "psr/log": ">=1.0,<2.0",
                 "symfony/config": "2.2.*",
                 "symfony/http-kernel": "2.2.*",
                 "symfony/yaml": "2.2.*"
             },
             "suggest": {
-                "doctrine/common": ">=2.2,<2.4-dev",
+                "doctrine/common": "~2.2",
                 "symfony/config": "2.2.*",
                 "symfony/yaml": "2.2.*"
             },
-            "time": "2013-01-21 16:57:32",
+            "time": "2013-02-01 09:33:53",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -375,23 +375,23 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.2.0-BETA2",
+            "version": "v2.2.0-RC1",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml",
-                "reference": "v2.2.0-BETA2"
+                "reference": "v2.2.0-RC1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/Yaml/archive/v2.2.0-BETA2.zip",
-                "reference": "v2.2.0-BETA2",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/v2.2.0-RC1",
+                "reference": "v2.2.0-RC1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
-            "time": "2013-01-23 20:21:00",
+            "time": "2013-01-27 16:49:19",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -427,12 +427,12 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/config": 10,
-        "symfony/dependency-injection": 10,
-        "symfony/event-dispatcher": 10,
-        "symfony/http-foundation": 10,
-        "symfony/http-kernel": 10,
-        "symfony/routing": 10,
-        "symfony/yaml": 10
+        "symfony/config": 5,
+        "symfony/dependency-injection": 5,
+        "symfony/event-dispatcher": 5,
+        "symfony/http-foundation": 5,
+        "symfony/http-kernel": 5,
+        "symfony/routing": 5,
+        "symfony/yaml": 5
     }
 }
