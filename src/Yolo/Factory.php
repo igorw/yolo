@@ -8,10 +8,13 @@ use Yolo\Compiler\EventSubscriberPass;
 
 class Factory
 {
-    public static function createContainer(array $parameters = [])
+    public static function createContainer(array $parameters = [], array $extensions = [])
     {
         $container = new ContainerBuilder();
         $container->registerExtension(new YoloExtension());
+        foreach ($extensions as $extension) {
+            $container->registerExtension($extension);
+        }
 
         $container->getParameterBag()->add($parameters);
 
