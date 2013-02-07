@@ -20,6 +20,7 @@
         "symfony/yaml": "~2.1@beta"
     },
     "autoload": {
-        "psr-0": { "Yolo": "src" }
+        "psr-0": { "Yolo": "src" },
+        "files": ["src/Yolo/factory.php"]
     }
 }

@@ -11,7 +11,7 @@ class Application
 
     public function __construct(ContainerInterface $container = null)
     {
-        $this->container = $container ?: Factory::createContainer();
+        $this->container = $container ?: createContainer();
     }
 
     public function get($name, $path, $controller)
