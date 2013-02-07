@@ -5,6 +5,7 @@ namespace Yolo;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Yolo\DependencyInjection\YoloExtension;
 use Yolo\Compiler\EventSubscriberPass;
+use Yolo\Compiler\ControllerResolverDecoratorPass;
 
 function createContainer(array $parameters = [], array $extensions = [])
 {
@@ -21,6 +22,7 @@ function createContainer(array $parameters = [], array $extensions = [])
     }
 
     $container->addCompilerPass(new EventSubscriberPass());
+    $container->addCompilerPass(new ControllerResolverDecoratorPass());
     $container->compile();
 
     return $container;
