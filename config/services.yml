@@ -14,11 +14,6 @@ services:
             - @dispatcher
             - @controller_resolver
 
-    logger:
-        class: Monolog\Logger
-        arguments:
-            - %app.name%
-
     dispatcher:
         class: Symfony\Component\EventDispatcher\EventDispatcher
 
@@ -57,7 +52,7 @@ services:
         arguments:
             - @url_matcher
             - @request_context
-            - @logger
+            - @?logger
         tags:
             - { name: kernel.event_subscriber }
 
