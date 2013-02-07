@@ -1,3 +1,6 @@
+parameters:
+    debug: false
+
 services:
     front_controller:
         class: Yolo\FrontController
@@ -40,6 +43,8 @@ services:
 
     exception_handler:
         class: Symfony\Component\HttpKernel\Debug\ExceptionHandler
+        arguments:
+            - %debug%
 
     listener.router:
         class: Symfony\Component\HttpKernel\EventListener\RouterListener
