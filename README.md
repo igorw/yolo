@@ -2,6 +2,12 @@
 
 The microframework with swag.
 
+       ____
+      /.   \__
+     /_  \_/  \
+    // \  ___ |\
+        |_| |_|
+
 ## WTF is this?
 
 YOLO is not intended for production use. It was created for the "Silex
