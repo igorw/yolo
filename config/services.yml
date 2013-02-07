@@ -1,4 +1,5 @@
 parameters:
+    app.name: yolo
     debug: false
 
 services:
@@ -16,7 +17,7 @@ services:
     logger:
         class: Monolog\Logger
         arguments:
-            - 'name'
+            - %app.name%
 
     dispatcher:
         class: Symfony\Component\EventDispatcher\EventDispatcher
