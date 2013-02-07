@@ -19,6 +19,8 @@ services:
 
     controller_resolver:
         class: Symfony\Component\HttpKernel\Controller\ControllerResolver
+        arguments:
+            - @?logger
 
     route_builder:
         class: Yolo\RouteBuilder
@@ -67,5 +69,6 @@ services:
         class: Symfony\Component\HttpKernel\EventListener\ExceptionListener
         arguments:
             - [@exception_controller, 'handle']
+            - @?logger
         tags:
             - { name: kernel.event_subscriber }
