@@ -20,15 +20,15 @@ $container = Yolo\createContainer(
 
 $app = new Yolo\Application($container);
 
-$app->get('explosion', '/500', function (Request $request) {
+$app->get('/500', function (Request $request) {
     throw new \Exception('Holy crap, explosion!');
 });
 
-$app->get('bad_request', '/400', function (Request $request) {
+$app->get('/400', function (Request $request) {
     throw new BadRequestHttpException('Janz schlimm.');
 });
 
-$app->get('graceful', '/graceful', function (Request $request) {
+$app->get('/graceful', function (Request $request) {
     throw new GracefulException('Fuuuuuuu!');
 });
 

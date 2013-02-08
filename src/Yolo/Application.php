@@ -19,29 +19,29 @@ class Application
         return $this->container;
     }
 
-    public function get($name, $path, $controller)
+    public function get($path, $controller)
     {
-        $this->container->get('route_builder')->get($name, $path, $controller);
+        $this->container->get('route_builder')->get($path, $controller);
     }
 
-    public function post($name, $path, $controller)
+    public function post($path, $controller)
     {
-        $this->container->get('route_builder')->post($name, $path, $controller);
+        $this->container->get('route_builder')->post($path, $controller);
     }
 
-    public function put($name, $path, $controller)
+    public function put($path, $controller)
     {
-        $this->container->get('route_builder')->put($name, $path, $controller);
+        $this->container->get('route_builder')->put($path, $controller);
     }
 
-    public function delete($name, $path, $controller)
+    public function delete($path, $controller)
     {
-        $this->container->get('route_builder')->delete($name, $path, $controller);
+        $this->container->get('route_builder')->delete($path, $controller);
     }
 
-    public function match($name, $path, $controller, $method = null)
+    public function match($path, $controller, $method = null)
     {
-        $this->container->get('route_builder')->match($name, $path, $controller, $method);
+        $this->container->get('route_builder')->match($path, $controller, $method);
     }
 
     public function run()
