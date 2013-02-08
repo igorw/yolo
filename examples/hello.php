@@ -13,6 +13,7 @@ $container = Yolo\createContainer(
         new Yolo\DependencyInjection\MonologExtension(),
     ]
 );
+
 $app = new Yolo\Application($container);
 
 $app->get('hello', '/', function (Request $request) {

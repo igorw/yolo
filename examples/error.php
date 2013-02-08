@@ -17,6 +17,7 @@ $container = Yolo\createContainer(
         new Yolo\DependencyInjection\MonologExtension(),
     ]
 );
+
 $app = new Yolo\Application($container);
 
 $app->get('explosion', '/500', function (Request $request) {
