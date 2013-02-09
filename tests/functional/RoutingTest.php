@@ -4,9 +4,10 @@ namespace functional;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Yolo\Application;
 
-class ApplicationTest extends \PHPUnit_Framework_TestCase
+class RoutingTest extends \PHPUnit_Framework_TestCase
 {
     public function testHelloWorld()
     {
@@ -18,7 +19,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 
         $kernel = $app->getContainer()->get('http_kernel');
         $request = Request::create('/');
-        $response = $kernel->handle($request);
+        $response = $kernel->handle($request, HttpKernelInterface::MASTER_REQUEST, false);
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('text/html; charset=UTF-8', $response->headers->get('Content-Type'));
