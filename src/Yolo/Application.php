@@ -58,6 +58,11 @@ class Application
         $this->container->get('dispatcher')->addListener(KernelEvents::RESPONSE, $listener, $priority);
     }
 
+    public function error($listener, $priority = 0)
+    {
+        $this->container->get('dispatcher')->addListener(KernelEvents::EXCEPTION, $listener, $priority);
+    }
+
     public function run()
     {
         $front = $this->container->get('front_controller');
