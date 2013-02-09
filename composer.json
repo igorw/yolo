@@ -11,13 +11,13 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "symfony/config": "~2.1@RC",
-        "symfony/dependency-injection": "~2.1@RC",
-        "symfony/event-dispatcher": "~2.1@RC",
-        "symfony/http-foundation": "~2.1@RC",
-        "symfony/http-kernel": "~2.1@RC",
-        "symfony/routing": "~2.1@RC",
-        "symfony/yaml": "~2.1@RC"
+        "symfony/config": "~2.2-RC1",
+        "symfony/dependency-injection": "~2.2-RC1",
+        "symfony/event-dispatcher": "~2.2-RC1",
+        "symfony/http-foundation": "~2.2-RC1",
+        "symfony/http-kernel": "~2.2-RC1",
+        "symfony/routing": "~2.2-RC1",
+        "symfony/yaml": "~2.2-RC1"
     },
     "require-dev": {
         "monolog/monolog": "~1.3"
