@@ -8,6 +8,8 @@ The microframework with swag.
     // \  ___ |\
         |_| |_|
 
+[![Build Status](https://secure.travis-ci.org/igorw/yolo.png?branch=master)](http://travis-ci.org/igorw/yolo)
+
 ## WTF is this?
 
 YOLO is not intended for production use. It was created for the "Silex
