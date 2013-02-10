@@ -13,7 +13,9 @@ class RouteBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new RouteBuilder($routes);
 
         $controller = function () {};
-        $builder->$method('/foo', $controller);
+        $route = $builder->$method('/foo', $controller);
+
+        $this->assertInstanceOf('Symfony\Component\Routing\Route', $route);
 
         $routes = $routes->all();
         $this->assertCount(1, $routes);

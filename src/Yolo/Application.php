@@ -25,27 +25,27 @@ class Application
 
     public function get($path, $controller)
     {
-        $this->container->get('route_builder')->get($path, $controller);
+        return $this->container->get('route_builder')->get($path, $controller);
     }
 
     public function post($path, $controller)
     {
-        $this->container->get('route_builder')->post($path, $controller);
+        return $this->container->get('route_builder')->post($path, $controller);
     }
 
     public function put($path, $controller)
     {
-        $this->container->get('route_builder')->put($path, $controller);
+        return $this->container->get('route_builder')->put($path, $controller);
     }
 
     public function delete($path, $controller)
     {
-        $this->container->get('route_builder')->delete($path, $controller);
+        return $this->container->get('route_builder')->delete($path, $controller);
     }
 
     public function match($path, $controller, $method = null)
     {
-        $this->container->get('route_builder')->match($path, $controller, $method);
+        return $this->container->get('route_builder')->match($path, $controller, $method);
     }
 
     public function before($listener, $priority = 0)

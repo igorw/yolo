@@ -4,6 +4,7 @@ namespace Yolo;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Route;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +15,9 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $container = $this->createContainer(['route_builder' => $builder]);
 
         $app = new Application($container);
-        $app->$method('/', function () {});
+        $route = $app->$method('/', function () {});
+
+        $this->assertInstanceOf('Symfony\Component\Routing\Route', $route);
     }
 
     public function provideRouteMethods()
@@ -73,7 +76,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
                         ->getMock();
         $builder->expects($this->once())
                 ->method($method)
-                ->with($path, $this->isInstanceOf('Closure'));
+                ->with($path, $this->isInstanceOf('Closure'))
+                ->will($this->returnValue(new Route($path)));
 
         return $builder;
     }
