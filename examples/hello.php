@@ -13,9 +13,10 @@ $container = Yolo\createContainer(
         new Yolo\DependencyInjection\MonologExtension(),
     ]
 );
+
 $app = new Yolo\Application($container);
 
-$app->get('hello', '/', function (Request $request) {
+$app->get('/', function (Request $request) {
     return new Response("Hallo welt, got swag yo!\n");
 });
 

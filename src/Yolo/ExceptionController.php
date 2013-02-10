@@ -16,7 +16,7 @@ class ExceptionController
 
     public function handle(Request $request)
     {
-        $exception = $request->get('exception');
+        $exception = $request->attributes->get('exception');
 
         return $this->handler->createResponse($exception);
     }
