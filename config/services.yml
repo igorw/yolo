@@ -18,9 +18,6 @@ services:
         class: Symfony\Component\EventDispatcher\EventDispatcher
 
     controller_resolver:
-        alias: controller_resolver.default
-
-    controller_resolver.default:
         class: Symfony\Component\HttpKernel\Controller\ControllerResolver
         arguments:
             - @?logger

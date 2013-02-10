@@ -10,15 +10,15 @@ class ControllerResolverDecoratorPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $prev = 'controller_resolver.default';
+        $prev = $container->getDefinition('controller_resolver');
 
         foreach ($container->findTaggedServiceIds('controller_resolver.decorator') as $id => $attributes) {
             $decorator = $container->getDefinition($id);
-            $decorator->replaceArgument(0, new Reference($prev));
+            $decorator->replaceArgument(0, $prev);
 
-            $prev = $id;
+            $prev = $decorator;
         }
 
-        $container->setAlias('controller_resolver', $prev);
+        $container->setDefinition('controller_resolver', $prev);
     }
 }
