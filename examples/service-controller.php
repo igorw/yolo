@@ -31,6 +31,6 @@ $container = Yolo\createContainer(
 );
 $app = new Yolo\Application($container);
 
-$app->get('hello', '/', 'hello.controller:worldAction');
+$app->get('/', 'hello.controller:worldAction');
 
 $app->run();
