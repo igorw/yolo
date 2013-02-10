@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Route;
 
 class RouteBuilder
 {
+    private $index = 0;
     private $routes;
 
     public function __construct(RouteCollection $routes)
@@ -14,28 +15,30 @@ class RouteBuilder
         $this->routes = $routes;
     }
 
-    public function get($name, $path, $controller)
+    public function get($path, $controller)
     {
-        $this->addRoute($name, $path, $controller, 'GET');
+        $this->match($path, $controller, 'GET');
     }
 
-    public function post($name, $path, $controller)
+    public function post($path, $controller)
     {
-        $this->addRoute($name, $path, $controller, 'POST');
+        $this->match($path, $controller, 'POST');
     }
 
-    public function put($name, $path, $controller)
+    public function put($path, $controller)
     {
-        $this->addRoute($name, $path, $controller, 'PUT');
+        $this->match($path, $controller, 'PUT');
     }
 
-    public function delete($name, $path, $controller)
+    public function delete($path, $controller)
     {
-        $this->addRoute($name, $path, $controller, 'DELETE');
+        $this->match($path, $controller, 'DELETE');
     }
 
-    public function addRoute($name, $path, $controller, $method)
+    public function match($path, $controller, $method = null)
     {
-        $this->routes->add($name, new Route($path, ['_controller' => $controller], ['_method' => $method]));
+        $name = $this->index++;
+        $requirements = $method ? ['_method' => $method] : [];
+        $this->routes->add($name, new Route($path, ['_controller' => $controller], $requirements));
     }
 }

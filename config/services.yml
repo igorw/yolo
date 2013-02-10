@@ -1,3 +1,7 @@
+parameters:
+    app.name: yolo
+    debug: false
+
 services:
     front_controller:
         class: Yolo\FrontController
@@ -15,6 +19,8 @@ services:
 
     controller_resolver:
         class: Symfony\Component\HttpKernel\Controller\ControllerResolver
+        arguments:
+            - @?logger
 
     route_builder:
         class: Yolo\RouteBuilder
@@ -40,12 +46,15 @@ services:
 
     exception_handler:
         class: Symfony\Component\HttpKernel\Debug\ExceptionHandler
+        arguments:
+            - %debug%
 
     listener.router:
         class: Symfony\Component\HttpKernel\EventListener\RouterListener
         arguments:
             - @url_matcher
             - @request_context
+            - @?logger
         tags:
             - { name: kernel.event_subscriber }
 
@@ -60,5 +69,6 @@ services:
         class: Symfony\Component\HttpKernel\EventListener\ExceptionListener
         arguments:
             - [@exception_controller, 'handle']
+            - @?logger
         tags:
             - { name: kernel.event_subscriber }
