@@ -42,6 +42,19 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
         $front = new FrontController($kernel);
         $front->run();
     }
+
+    public function testRunFunction()
+    {
+        $this->expectOutputString('foo');
+
+        $kernel = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+        $kernel->expects($this->once())
+               ->method('handle')
+               ->with($this->isInstanceOf('Symfony\Component\HttpFoundation\Request'))
+               ->will($this->returnValue(new Response('foo')));
+
+        run($kernel);
+    }
 }
 
 abstract class TerminableKernel implements HttpKernelInterface, TerminableInterface {}
