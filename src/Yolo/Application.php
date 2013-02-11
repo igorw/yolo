@@ -23,6 +23,11 @@ class Application
         return $this->container;
     }
 
+    public function getHttpKernel()
+    {
+        return $this->container->get('http_kernel');
+    }
+
     public function get($path, $controller)
     {
         return $this->container->get('route_builder')->get($path, $controller);

@@ -55,6 +55,16 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($container, $app->getContainer());
     }
 
+    public function testGetHttpKernel()
+    {
+        $kernel = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+
+        $container = $this->createContainer(['http_kernel' => $kernel]);
+        $app = new Application($container);
+
+        $this->assertSame($kernel, $app->getHttpKernel());
+    }
+
     private function createContainer(array $services = [])
     {
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
