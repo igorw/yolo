@@ -1,5 +1,10 @@
 <?php
 
+// The **Application** object is a facade to the *RouteBuilder*, the
+// *EventDispatcher* and the *FrontController*.
+//
+// It provides convenience methods for the most common functionality.
+
 namespace Yolo;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,6 +18,22 @@ class Application
 
     private $container;
 
+    // You can optionally pass in a service container to the constructor. If
+    // you don't pass one, a standard one will be created via the
+    // *Yolo\createContainer()* function.
+    //
+    // A sample invokation:
+    //
+    //     $app = new Yolo\Application();
+    //
+    // Or if you want to pass a custom container:
+    //
+    //     $container = Yolo\createContainer([
+    //         'debug' => true,
+    //     ]);
+    //
+    //     $app = new Yolo\Application($container);
+
     public function __construct(ContainerInterface $container = null)
     {
         $this->container = $container ?: createContainer();
@@ -22,6 +43,31 @@ class Application
     {
         return $this->container;
     }
+
+    // For each of the standard HTTP methods, there is a corresponding
+    // convenience method on the *Application*. It will proxy to the
+    // *RouteBuilder*.
+    //
+    // These methods allow you to define routes, which basically map path
+    // patterns to controller functions.
+    //
+    // A controller function takes a *Request* argument and returns a
+    // *Response* object.
+    //
+    // Sample usage:
+    //
+    //     use Symfony\Component\HttpFoundation\Request;
+    //     use Symfony\Component\HttpFoundation\Response;
+    //
+    //     $app->get('/', function (Request $request) {
+    //         return Response('Hi.');
+    //     });
+    //
+    //     $app->post('/foo', function (Request $request) {
+    //         return Response('Created successfully.', 201, [
+    //             'Location' => '/foo/id'
+    //         ]);
+    //     });
 
     public function get($path, $controller)
     {
@@ -48,6 +94,26 @@ class Application
         return $this->container->get('route_builder')->match($path, $controller, $method);
     }
 
+    // The *before*, *after* and *error* methods are simple proxies to the
+    // *EventDispatcher*.
+    //
+    // They allow you to register listeners for certain events.
+    //
+    // Sample usage:
+    //
+    //     $app->before(function ($event) {
+    //         $request = $event->getRequest();
+    //         if ('::1' !== $request->getClientIp()) {
+    //             $response = new Response('Only localhost allowed.', 403);
+    //             $event->setResponse($response);
+    //         }
+    //     });
+    //
+    //     $app->after(function ($event) {
+    //         $response = $event->getResponse();
+    //         $response->headers->set('igor-was-here', 'true');
+    //     });
+
     public function before($listener, $priority = 0)
     {
         $this->container->get('dispatcher')->addListener(KernelEvents::REQUEST, $listener, $priority);
@@ -62,6 +128,13 @@ class Application
     {
         $this->container->get('dispatcher')->addListener(KernelEvents::EXCEPTION, $listener, $priority);
     }
+
+    // The *run* method provides a shortcut to serve the application to a
+    // browser. You should call this from the front controller.
+    //
+    // Sample usage:
+    //
+    //     $app->run();
 
     public function run()
     {
