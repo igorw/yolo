@@ -28,6 +28,11 @@ You will probably want to continue using
 * symfony/dependency-injection instead of pimple
 * more animated gif
 
+## What does YOLO mean?
+
+* [Educational in-depth CollegeHumor video](http://www.youtube.com/watch?v=GMxoh2QEvlg)
+* [Urban Dictionary](http://www.urbandictionary.com/define.php?term=yolo)
+
 ## But I want to use it in production
 
 Feel free to use it. If it fits your needs, that is perfectly fine.

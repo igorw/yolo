@@ -24,6 +24,6 @@
     },
     "autoload": {
         "psr-0": { "Yolo": "src" },
-        "files": ["src/Yolo/factory.php"]
+        "files": ["src/Yolo/functions.php"]
     }
 }

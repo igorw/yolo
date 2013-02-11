@@ -4,6 +4,7 @@ namespace Yolo;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Route;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +15,9 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $container = $this->createContainer(['route_builder' => $builder]);
 
         $app = new Application($container);
-        $app->$method('/', function () {});
+        $route = $app->$method('/', function () {});
+
+        $this->assertInstanceOf('Symfony\Component\Routing\Route', $route);
     }
 
     public function provideRouteMethods()
@@ -52,6 +55,16 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($container, $app->getContainer());
     }
 
+    public function testGetHttpKernel()
+    {
+        $kernel = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+
+        $container = $this->createContainer(['http_kernel' => $kernel]);
+        $app = new Application($container);
+
+        $this->assertSame($kernel, $app->getHttpKernel());
+    }
+
     private function createContainer(array $services = [])
     {
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
@@ -73,7 +86,8 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
                         ->getMock();
         $builder->expects($this->once())
                 ->method($method)
-                ->with($path, $this->isInstanceOf('Closure'));
+                ->with($path, $this->isInstanceOf('Closure'))
+                ->will($this->returnValue(new Route($path)));
 
         return $builder;
     }

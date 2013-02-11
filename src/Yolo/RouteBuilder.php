@@ -17,28 +17,32 @@ class RouteBuilder
 
     public function get($path, $controller)
     {
-        $this->match($path, $controller, 'GET');
+        return $this->match($path, $controller, 'GET');
     }
 
     public function post($path, $controller)
     {
-        $this->match($path, $controller, 'POST');
+        return $this->match($path, $controller, 'POST');
     }
 
     public function put($path, $controller)
     {
-        $this->match($path, $controller, 'PUT');
+        return $this->match($path, $controller, 'PUT');
     }
 
     public function delete($path, $controller)
     {
-        $this->match($path, $controller, 'DELETE');
+        return $this->match($path, $controller, 'DELETE');
     }
 
     public function match($path, $controller, $method = null)
     {
         $name = $this->index++;
         $requirements = $method ? ['_method' => $method] : [];
-        $this->routes->add($name, new Route($path, ['_controller' => $controller], $requirements));
+        $route = new Route($path, ['_controller' => $controller], $requirements);
+
+        $this->routes->add($name, $route);
+
+        return $route;
     }
 }
