@@ -29,6 +29,7 @@ $container = Yolo\createContainer(
         ),
     ]
 );
+
 $app = new Yolo\Application($container);
 
 $app->get('/', 'hello.controller:worldAction');
