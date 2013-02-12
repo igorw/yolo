@@ -13,7 +13,7 @@ class ServiceControllerExtension extends Extension
         $container
             ->register('controller_resolver.service', 'Yolo\DependencyInjection\ServiceControllerResolver')
             ->setArguments([
-                new Reference('controller_resolver.decorated'),
+                new Reference('controller_resolver'),
                 new Reference('service_container'),
             ])
             ->addTag('controller_resolver.decorator', []);

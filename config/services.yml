@@ -22,9 +22,6 @@ services:
         arguments:
             - @?logger
 
-    controller_resolver.decorated:
-        synthetic: true
-
     route_builder:
         class: Yolo\RouteBuilder
         arguments:
