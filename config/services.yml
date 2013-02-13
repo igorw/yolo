@@ -72,3 +72,13 @@ services:
             - @?logger
         tags:
             - { name: kernel.event_subscriber }
+
+    listener.request_parameter:
+        class: Yolo\EventListener\RequestParameterListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    listener.string_response:
+        class: Yolo\EventListener\StringResponseListener
+        tags:
+            - { name: kernel.event_subscriber }
