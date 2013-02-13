@@ -72,3 +72,8 @@ services:
             - @?logger
         tags:
             - { name: kernel.event_subscriber }
+
+    listener.implicit_controller:
+        class: Yolo\EventListener\ImplicitControllerListener
+        tags:
+            - { name: kernel.event_subscriber }
