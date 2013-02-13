@@ -11,7 +11,7 @@ class ServiceControllerExtension extends Extension
     public function load(array $config, ContainerBuilder $container)
     {
         $container
-            ->register('controller_resolver.service', 'Yolo\DependencyInjection\ServiceControllerResolver')
+            ->register('controller_resolver.service', 'Yolo\Controller\ServiceControllerResolver')
             ->setArguments([
                 new Reference('controller_resolver'),
                 new Reference('service_container'),

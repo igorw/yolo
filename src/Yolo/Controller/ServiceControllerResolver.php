@@ -1,6 +1,6 @@
 <?php
 
-namespace Yolo\DependencyInjection;
+namespace Yolo\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
