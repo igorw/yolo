@@ -73,7 +73,12 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    listener.implicit_controller:
-        class: Yolo\EventListener\ImplicitControllerListener
+    listener.request_parameter:
+        class: Yolo\EventListener\RequestParameterListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    listener.string_response:
+        class: Yolo\EventListener\StringResponseListener
         tags:
             - { name: kernel.event_subscriber }
