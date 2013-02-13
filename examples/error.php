@@ -32,14 +32,12 @@ $app->get('/graceful', function (Request $request) {
     throw new GracefulException('Fuuuuuuu!');
 });
 
-$container
-    ->get('dispatcher')
-    ->addListener(KernelEvents::EXCEPTION, function ($event) {
-        $e = $event->getException();
-        if ($e instanceof GracefulException) {
-            $message = sprintf("Exception '%s' handled exception gracefully.\n", $e->getMessage());
-            $event->setResponse(new Response($message));
-        }
-    });
+$app->error(function ($event) {
+    $e = $event->getException();
+    if ($e instanceof GracefulException) {
+        $message = sprintf("Exception '%s' handled exception gracefully.\n", $e->getMessage());
+        $event->setResponse(new Response($message));
+    }
+});
 
 $app->run();
