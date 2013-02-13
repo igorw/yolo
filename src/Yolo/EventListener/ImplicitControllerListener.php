@@ -26,9 +26,9 @@ class ImplicitControllerListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            KernelEvents::REQUEST   => array('onKernelRequest'),
-            KernelEvents::VIEW      => array(array('onKernelView', -512)),
-        );
+        return [
+            KernelEvents::REQUEST   => ['onKernelRequest'],
+            KernelEvents::VIEW      => [['onKernelView', -512]],
+        ];
     }
 }
