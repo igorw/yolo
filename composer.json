@@ -20,7 +20,8 @@
         "symfony/yaml": "~2.2-RC1"
     },
     "require-dev": {
-        "monolog/monolog": "~1.3"
+        "monolog/monolog": "~1.3",
+        "whatthejeff/fab-phpunit-resultprinter": "1.0.*"
     },
     "autoload": {
         "psr-0": { "Yolo": "src" },

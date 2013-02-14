@@ -3,6 +3,8 @@
 <phpunit backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
+         printerFile="vendor/whatthejeff/fab-phpunit-resultprinter/src/Fab/PHPUnit/ResultPrinter.php"
+         printerClass="Fab\PHPunit\ResultPrinter"
 >
     <testsuites>
         <testsuite name="unit">
