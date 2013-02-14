@@ -6,6 +6,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Yolo\FrontController;
 use Yolo\Compiler\EventSubscriberPass;
+use Yolo\Compiler\ControllerResolverDecoratorPass;
 use Yolo\DependencyInjection\YoloExtension;
 
 function createContainer(array $parameters = [], array $extensions = [])
@@ -23,6 +24,7 @@ function createContainer(array $parameters = [], array $extensions = [])
     }
 
     $container->addCompilerPass(new EventSubscriberPass());
+    $container->addCompilerPass(new ControllerResolverDecoratorPass());
     $container->compile();
 
     return $container;
