@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 
 class ServiceControllerExtension extends Extension
 {
-    public function load(array $config, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container)
     {
         $container
             ->register('controller_resolver.service', 'Yolo\Controller\ServiceControllerResolver')
