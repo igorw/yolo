@@ -16,9 +16,9 @@ class CallableExtension extends Extension
         $this->callable = $callable;
     }
 
-    public function load(array $config, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container)
     {
-        call_user_func($this->callable, $config, $container);
+        call_user_func($this->callable, $configs, $container);
     }
 
     public function getAlias()
