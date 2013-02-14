@@ -2,15 +2,11 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
 class HelloController
 {
-    public function worldAction(Request $request)
+    public function worldAction($request)
     {
-        return new Response("Hallo welt, got swag yo!\n");
+        return "Hallo welt, got swag yo!\n";
     }
 }
 
@@ -23,7 +19,7 @@ $container = Yolo\createContainer(
         new Yolo\DependencyInjection\ServiceControllerExtension(),
         new Yolo\DependencyInjection\CallableExtension(
             'controller',
-            function (array $config, ContainerBuilder $container) {
+            function ($configs, $container) {
                 $container->register('hello.controller', 'HelloController');
             }
         ),
