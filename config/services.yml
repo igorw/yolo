@@ -15,7 +15,9 @@ services:
             - @controller_resolver
 
     dispatcher:
-        class: Symfony\Component\EventDispatcher\EventDispatcher
+        class: Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher
+        arguments:
+            - @service_container
 
     controller_resolver:
         class: Symfony\Component\HttpKernel\Controller\ControllerResolver

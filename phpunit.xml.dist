@@ -3,10 +3,18 @@
 <phpunit backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
+         printerFile="vendor/whatthejeff/fab-phpunit-resultprinter/src/Fab/PHPUnit/ResultPrinter.php"
+         printerClass="Fab\PHPunit\ResultPrinter"
 >
     <testsuites>
         <testsuite name="unit">
             <directory>./tests/unit/</directory>
+        </testsuite>
+    </testsuites>
+
+    <testsuites>
+        <testsuite name="integration">
+            <directory>./tests/integration/</directory>
         </testsuite>
     </testsuites>
 
