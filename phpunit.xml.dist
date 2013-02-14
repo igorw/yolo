@@ -13,6 +13,12 @@
     </testsuites>
 
     <testsuites>
+        <testsuite name="integration">
+            <directory>./tests/integration/</directory>
+        </testsuite>
+    </testsuites>
+
+    <testsuites>
         <testsuite name="functional">
             <directory>./tests/functional/</directory>
         </testsuite>
