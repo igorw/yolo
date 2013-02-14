@@ -536,7 +536,7 @@
         },
         {
             "name": "whatthejeff/fab-phpunit-resultprinter",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/whatthejeff/fab-phpunit-resultprinter",
