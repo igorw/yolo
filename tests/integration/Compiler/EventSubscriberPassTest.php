@@ -21,10 +21,10 @@ class EventSubscriberPassTest extends \PHPUnit_Framework_TestCase
         $pass->process($container);
 
         $dispatcher = $container->get('dispatcher');
-        $dispatcher->dispatch('kernel.foo');
+        $this->assertFalse(FooListener::$created);
 
-        $listener = $container->get('listener.foo');
-        $this->assertTrue($listener->wasCalled());
+        $dispatcher->dispatch('kernel.foo');
+        $this->assertTrue(FooListener::$created);
     }
 
     /**
@@ -46,16 +46,15 @@ class EventSubscriberPassTest extends \PHPUnit_Framework_TestCase
 
 class FooListener implements EventSubscriberInterface
 {
-    private $called = false;
+    public static $created = false;
+
+    public function __construct()
+    {
+        static::$created = true;
+    }
 
     public function onFoo()
     {
-        $this->called = true;
-    }
-
-    public function wasCalled()
-    {
-        return $this->called;
     }
 
     public static function getSubscribedEvents()
