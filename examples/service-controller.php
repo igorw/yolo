@@ -19,7 +19,7 @@ $container = Yolo\createContainer(
         new Yolo\DependencyInjection\ServiceControllerExtension(),
         new Yolo\DependencyInjection\CallableExtension(
             'controller',
-            function ($configs, $container) {
+            function ($container) {
                 $container->register('hello.controller', 'HelloController');
             }
         ),
