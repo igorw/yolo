@@ -14,15 +14,15 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Symfony\Component\DependencyInjection\ContainerInterface', $container);
         $this->assertInstanceOf('Symfony\Component\HttpKernel\HttpKernel', $container->get('http_kernel'));
         $this->assertInstanceOf('Yolo\FrontController', $container->get('front_controller'));
-        $this->assertSame(false, $container->getParameter('debug'));
+        $this->assertSame(false, $container->getParameter('yolo.debug'));
     }
 
     /** @test */
     public function testCreateContainerWithParameter()
     {
-        $container = Yolo\createContainer(['debug' => true]);
+        $container = Yolo\createContainer(['yolo.debug' => true]);
 
-        $this->assertSame(true, $container->getParameter('debug'));
+        $this->assertSame(true, $container->getParameter('yolo.debug'));
     }
 
     /** @test */
