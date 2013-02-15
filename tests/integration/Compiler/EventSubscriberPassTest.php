@@ -9,6 +9,11 @@ use Yolo\Compiler\EventSubscriberPass;
 
 class EventSubscriberPassTest extends \PHPUnit_Framework_TestCase
 {
+    public function tearDown()
+    {
+        FooListener::tearDown();
+    }
+
     public function testProcess()
     {
         $container = new ContainerBuilder();
@@ -60,6 +65,11 @@ class FooListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return ['kernel.foo' => 'onFoo'];
+    }
+
+    public static function tearDown()
+    {
+        static::$created = false;
     }
 }
 
