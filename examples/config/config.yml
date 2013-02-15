@@ -1,0 +1,6 @@
+imports:
+    - { resource: sub.yml }
+
+yolo:
+    debug: true
+    app.name: bar

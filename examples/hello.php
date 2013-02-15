@@ -7,8 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 $container = (new Yolo\ContainerBuilder())
     ->registerExtension(new Yolo\DependencyInjection\MonologExtension())
-    ->configure('yolo', ['debug' => true])
+    ->configure('yolo', ['debug' => false])
+    ->configDir(__DIR__.'/config')
     ->getContainer();
+
+var_dump($container->getParameterBag()->all());
 
 $app = new Yolo\Application($container);
 
