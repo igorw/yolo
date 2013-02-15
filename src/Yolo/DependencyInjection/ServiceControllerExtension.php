@@ -4,9 +4,9 @@ namespace Yolo\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension as BaseExtension;
 
-class ServiceControllerExtension extends Extension
+class ServiceControllerExtension extends BaseExtension
 {
     public function load(array $configs, ContainerBuilder $container)
     {

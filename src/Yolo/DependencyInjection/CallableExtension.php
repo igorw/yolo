@@ -3,9 +3,9 @@
 namespace Yolo\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension as BaseExtension;
 
-class CallableExtension extends Extension
+class CallableExtension extends BaseExtension
 {
     private $alias;
     private $callable;

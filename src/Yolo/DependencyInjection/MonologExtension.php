@@ -3,9 +3,9 @@
 namespace Yolo\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension as BaseExtension;
 
-class MonologExtension extends Extension
+class MonologExtension extends BaseExtension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
