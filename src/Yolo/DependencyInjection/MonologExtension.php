@@ -11,6 +11,6 @@ class MonologExtension extends Extension
     {
         $container
             ->register('logger', 'Monolog\Logger')
-            ->setArguments(['%app.name%']);
+            ->setArguments(['%yolo.name%']);
     }
 }

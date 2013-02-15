@@ -3,4 +3,4 @@ imports:
 
 yolo:
     debug: true
-    app.name: bar
+    name: bar

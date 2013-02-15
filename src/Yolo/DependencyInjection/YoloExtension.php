@@ -3,9 +3,11 @@
 namespace Yolo\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Yolo\Config\Configuration;
 
 class YoloExtension extends Extension
 {
@@ -14,41 +16,30 @@ class YoloExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../../config'));
         $loader->load('services.yml');
 
-        $definitions = [
-            'debug'     => ['type' => 'bool'],
-            'app.name'  => ['type' => 'string'],
-        ];
+        $configuration = $this->getConfiguration($configs, $container);
+        $config = $this->processConfiguration($configuration, $configs);
 
-        foreach ($configs as $config) {
-            foreach ($config as $name => $value) {
-                if (!isset($definitions[$name])) {
-                    throw new \InvalidArgumentException(sprintf("Invalid config option '%s' provided.", $name));
-                }
-
-                $def = $definitions[$name];
-                $cast = [$this, $def['type'].'val'];
-                $container->setParameter($name, $cast($value));
-            }
+        foreach ($config as $name => $value) {
+            $container->setParameter($this->getAlias().'.'.$name, $value);
         }
     }
 
-    public function boolval($value)
+    public function getConfiguration(array $config, ContainerBuilder $container)
     {
-        return (bool) $value;
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root($this->getAlias());
+
+        $this->configureRootNode($rootNode);
+
+        return new Configuration($treeBuilder);
     }
 
-    public function stringval($value)
+    public function configureRootNode($rootNode)
     {
-        return (string) $value;
-    }
-
-    public function intval($value)
-    {
-        return (int) $value;
-    }
-
-    public function floatval($value)
-    {
-        return (float) $value;
+        $rootNode
+            ->children()
+                ->scalarNode('debug')->end()
+                ->scalarNode('name')->end()
+            ->end();
     }
 }
