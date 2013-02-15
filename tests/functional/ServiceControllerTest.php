@@ -15,8 +15,8 @@ class ServiceControllerTest extends \PHPUnit_Framework_TestCase
     {
         $container = Yolo\createContainer([],
             [
-                new Yolo\DependencyInjection\ServiceControllerExtension(),
-                new Yolo\DependencyInjection\CallableExtension(
+                new Yolo\Extension\ServiceControllerExtension(),
+                new Yolo\Extension\CallableExtension(
                     'controller',
                     function (ContainerInterface $container) {
                         $container->register('hello.controller', 'functional\HelloController');
@@ -37,8 +37,8 @@ class ServiceControllerTest extends \PHPUnit_Framework_TestCase
     {
         $container = Yolo\createContainer([],
             [
-                new Yolo\DependencyInjection\ServiceControllerExtension(),
-                new Yolo\DependencyInjection\CallableExtension(
+                new Yolo\Extension\ServiceControllerExtension(),
+                new Yolo\Extension\CallableExtension(
                     'controller',
                     function (ContainerInterface $container) {
                         $container->register('hello.controller', 'functional\HelloController');
@@ -66,7 +66,7 @@ class ServiceControllerTest extends \PHPUnit_Framework_TestCase
     {
         $container = Yolo\createContainer([],
             [
-                new Yolo\DependencyInjection\ServiceControllerExtension(),
+                new Yolo\Extension\ServiceControllerExtension(),
             ]
         );
 

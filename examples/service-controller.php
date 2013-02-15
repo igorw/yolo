@@ -15,9 +15,9 @@ $container = Yolo\createContainer(
         'debug' => true,
     ],
     [
-        new Yolo\DependencyInjection\MonologExtension(),
-        new Yolo\DependencyInjection\ServiceControllerExtension(),
-        new Yolo\DependencyInjection\CallableExtension(
+        new Yolo\Extension\MonologExtension(),
+        new Yolo\Extension\ServiceControllerExtension(),
+        new Yolo\Extension\CallableExtension(
             'controller',
             function ($container) {
                 $container->register('hello.controller', 'HelloController');

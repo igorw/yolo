@@ -3,7 +3,7 @@
 namespace functional;
 
 use Yolo;
-use Yolo\DependencyInjection\MonologExtension;
+use Yolo\Extension\MonologExtension;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {

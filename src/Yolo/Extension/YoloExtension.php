@@ -1,6 +1,6 @@
 <?php
 
-namespace Yolo\DependencyInjection;
+namespace Yolo\Extension;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

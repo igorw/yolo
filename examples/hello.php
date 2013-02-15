@@ -10,7 +10,7 @@ $container = Yolo\createContainer(
         'debug' => true,
     ],
     [
-        new Yolo\DependencyInjection\MonologExtension(),
+        new Yolo\Extension\MonologExtension(),
     ]
 );
 
