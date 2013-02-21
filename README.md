@@ -40,3 +40,7 @@ Feel free to use it. If it fits your needs, that is perfectly fine.
 ## Will you change the name?
 
 No, never.
+
+## Community
+
+Check out #silex-php on irc.freenode.net.
