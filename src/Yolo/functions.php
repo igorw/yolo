@@ -24,7 +24,6 @@ function createContainer(array $parameters = [], array $extensions = [])
     }
 
     $container->addCompilerPass(new EventSubscriberPass());
-    $container->addCompilerPass(new ControllerResolverDecoratorPass());
     $container->compile();
 
     return $container;
