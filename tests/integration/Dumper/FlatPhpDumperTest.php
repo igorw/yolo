@@ -63,7 +63,7 @@ EOF;
 
 \$container
     ->register('route_builder', 'Yolo\\\\RouteBuilder')
-    ->setArguments(array(new Reference('routes')));
+    ->addArgument(new Reference('routes'));
 
 \$container
     ->register('routes', 'Symfony\\\\Component\\\\Routing\\\\RouteCollection');

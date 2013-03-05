@@ -58,7 +58,9 @@ EOF;
         }
 
         if ($definition->getArguments()) {
-            $code .= sprintf("    ->setArguments(array(%s))\n", implode(', ', $this->dumpValue($definition->getArguments())));
+            foreach ($definition->getArguments() as $argument) {
+                $code .= sprintf("    ->addArgument(%s)\n", $this->dumpValue($argument));
+            }
         }
 
         if ($definition->getProperties()) {
