@@ -596,5 +596,11 @@
     "minimum-stability": "stable",
     "stability-flags": [
 
+    ],
+    "platform": {
+        "php": ">=5.4.0"
+    },
+    "platform-dev": [
+
     ]
 }
