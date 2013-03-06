@@ -29,6 +29,22 @@ class FlatPhpDumper extends Dumper
 EOF;
     }
 
+    private function addParameters()
+    {
+        if (!$this->container->getParameterBag()->all()) {
+            return '';
+        }
+
+        $parameters = $this->dumpValue($this->container->getParameterBag()->all(), 4);
+
+        $code = <<<EOF
+
+\$container->getParameterBag()->add($parameters);
+EOF;
+
+        return $code;
+    }
+
     private function addService($id, $definition)
     {
         $code = <<<EOF
@@ -38,10 +54,20 @@ EOF;
 EOF;
 
         $code .= sprintf("    ->register(%s, %s)\n", $this->dumpValue($id), $this->dumpValue($definition->getClass()));
+        $code .= $this->addDefinition($definition);
+
+        $code = trim($code).";\n\n";
+
+        return $code;
+    }
+
+    private function addDefinition(Definition $definition)
+    {
+        $code = '';
 
         foreach ($definition->getTags() as $name => $tags) {
             foreach ($tags as $attributes) {
-                $code .= sprintf("    ->addTag(%s, %s)\n", $this->dumpValue($name), $this->exportParameters($attributes, '', 8));
+                $code .= sprintf("    ->addTag(%s, %s)\n", $this->dumpValue($name), $this->dumpValue($attributes));
             }
         }
 
@@ -72,7 +98,9 @@ EOF;
         if ($definition->getMethodCalls()) {
             foreach ($definition->getMethodCalls() as $call) {
                 list($method, $arguments) = $call;
-                $code .= sprintf("    ->addMethodCall(%s, array(%s))\n", $this->dumpValue($method), implode(', ', $this->dumpValue($arguments)));
+                $code .= sprintf("    ->addMethodCall(%s, array(%s))\n",
+                    $this->dumpValue($method),
+                    implode(', ', array_map([$this, 'dumpValue'], $arguments)));
             }
         }
 
@@ -91,8 +119,6 @@ EOF;
 
             $code .= sprintf("    ->setConfigurator(%s)\n", $this->dumpValue($callable));
         }
-
-        $code = trim($code).";\n\n";
 
         return $code;
     }
@@ -126,37 +152,30 @@ EOF;
         return $code;
     }
 
-    private function addParameters()
-    {
-        if (!$this->container->getParameterBag()->all()) {
-            return '';
-        }
-
-        $parameters = $this->exportParameters($this->container->getParameterBag()->all());
-
-        $code = <<<EOF
-
-\$container->getParameterBag()->add($parameters);
-EOF;
-
-        return $code;
-    }
-
-    private function dumpValue($value)
+    private function dumpValue($value, $indent = 8)
     {
         if (is_array($value)) {
-            $code = array();
-            foreach ($value as $k => $v) {
-                $code[$k] = $this->dumpValue($v);
+            if ([] === $value) {
+                return 'array()';
             }
 
-            return $code;
-        } elseif ($value instanceof Reference) {
-            return $this->getServiceCall((string) $value, $value);
+            $php = [];
+
+            foreach ($value as $key => $val) {
+                $val = $this->dumpValue($val, $indent + 4);
+                $php[] = sprintf('%s%s => %s,', str_repeat(' ', $indent), var_export($key, true), $val);
+            }
+
+            return sprintf("array(\n%s\n%s)", implode("\n", $php), str_repeat(' ', $indent - 4));
+        } elseif ($value instanceof Variable) {
+            // todo
         } elseif ($value instanceof Parameter) {
             return $this->getParameterCall((string) $value);
-        } elseif (is_object($value) || is_resource($value)) {
-            throw new RuntimeException('Unable to dump a service container if a parameter is an object or a resource.');
+        } elseif ($value instanceof Definition) {
+            // todo
+            return $this->getDefinitionCall((string) $value, $value);
+        } elseif ($value instanceof Reference) {
+            return $this->getServiceCall((string) $value, $value);
         }
 
         return var_export($value, true);
@@ -174,50 +193,5 @@ EOF;
     private function getParameterCall($id)
     {
         return sprintf('%%%s%%', $id);
-    }
-
-    /**
-     * Escapes arguments
-     *
-     * @param array $arguments
-     *
-     * @return array
-     */
-    private function escape($arguments)
-    {
-        $args = array();
-        foreach ($arguments as $k => $v) {
-            if (is_array($v)) {
-                $args[$k] = $this->escape($v);
-            } elseif (is_string($v)) {
-                $args[$k] = str_replace('%', '%%', $v);
-            } else {
-                $args[$k] = $v;
-            }
-        }
-
-        return $args;
-    }
-
-    private function exportParameters($parameters, $path = '', $indent = 4)
-    {
-        $php = array();
-        foreach ($parameters as $key => $value) {
-            if (is_array($value)) {
-                $value = $this->exportParameters($value, $path.'/'.$key, $indent + 4);
-            } elseif ($value instanceof Variable) {
-                throw new InvalidArgumentException(sprintf('You cannot dump a container with parameters that contain variable references. Variable "%s" found in "%s".', $value, $path.'/'.$key));
-            } elseif ($value instanceof Definition) {
-                throw new InvalidArgumentException(sprintf('You cannot dump a container with parameters that contain service definitions. Definition for "%s" found in "%s".', $value->getClass(), $path.'/'.$key));
-            } elseif ($value instanceof Reference) {
-                throw new InvalidArgumentException(sprintf('You cannot dump a container with parameters that contain references to other services (reference to service "%s" found in "%s").', $value, $path.'/'.$key));
-            } else {
-                $value = var_export($value, true);
-            }
-
-            $php[] = sprintf('%s%s => %s,', str_repeat(' ', $indent), var_export($key, true), $value);
-        }
-
-        return sprintf("array(\n%s\n%s)", implode("\n", $php), str_repeat(' ', $indent - 4));
     }
 }

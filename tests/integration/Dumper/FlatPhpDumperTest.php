@@ -93,9 +93,7 @@ EOF;
 
 \$container
     ->register('foo', 'Foo')
-    ->addTag('kernel.event_subscriber', array(
-
-    ))
+    ->addTag('kernel.event_subscriber', array())
     ->setFile('create_foo.php')
     ->setFactoryMethod('create')
     ->setFactoryService('foo_factory')
