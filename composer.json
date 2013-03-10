@@ -17,7 +17,8 @@
         "symfony/http-foundation": "~2.2",
         "symfony/http-kernel": "~2.2",
         "symfony/routing": "~2.2",
-        "symfony/yaml": "~2.2"
+        "symfony/yaml": "~2.2",
+        "zendframework/zend-mvc": "~2.1"
     },
     "require-dev": {
         "monolog/monolog": "~1.3",
