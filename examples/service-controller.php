@@ -4,23 +4,30 @@ require __DIR__.'/../vendor/autoload.php';
 
 class HelloController
 {
+    private $name;
+
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+
     public function worldAction($request)
     {
-        return "Hallo welt, got swag yo!\n";
+        return "Hello, I'm {$this->name}.\n";
     }
 }
 
 $container = Yolo\createContainer(
     [
-        'debug' => true,
+        'hello.name' => 'the amazing app',
     ],
     [
-        new Yolo\DependencyInjection\MonologExtension(),
         new Yolo\DependencyInjection\ServiceControllerExtension(),
         new Yolo\DependencyInjection\CallableExtension(
             'controller',
             function ($configs, $container) {
-                $container->register('hello.controller', 'HelloController');
+                $container->register('hello.controller', 'HelloController')
+                          ->addArgument('%hello.name%');
             }
         ),
     ]
