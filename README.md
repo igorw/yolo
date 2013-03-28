@@ -19,6 +19,9 @@ version of silex that can be cut up for inspection, fun and experimentation.
 
 [Watch the video recording of the talk.](https://vimeo.com/51201498)
 
+From a later version of the talk there are also
+[slides](https://speakerdeck.com/igorw/silex-anatomy-phpne).
+
 You will probably want to continue using
 [silex](https://github.com/fabpot/Silex) for your work.
 
