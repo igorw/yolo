@@ -26,5 +26,8 @@
     "autoload": {
         "psr-0": { "Yolo": "src" },
         "files": ["src/Yolo/functions.php"]
+    },
+    "extra": {
+        "branch-alias": { "dev-master": "42.0.x-dev" }
     }
 }
