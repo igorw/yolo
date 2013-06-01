@@ -17,7 +17,10 @@ Anatomy" talk to demonstrate more clearly the distinct responsibilities of
 different parts of the `Silex\Application` class. Think of it as an academic
 version of silex that can be cut up for inspection, fun and experimentation.
 
-[Watch the video recording of the talk.](https://vimeo.com/51201498)
+Watch the video recording of the talk:
+
+* [PHPBenelux 2013](http://www.youtube.com/watch?v=9VUoIruQNMg)
+* [Symfony Live London 2012](https://vimeo.com/51201498)
 
 From a later version of the talk there are also
 [slides](https://speakerdeck.com/igorw/silex-anatomy-phpne).
