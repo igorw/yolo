@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Yolo\Application;
 
 class StringResponseListener implements EventSubscriberInterface
 {
@@ -18,7 +19,7 @@ class StringResponseListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW      => [['onKernelView', -512]],
+            KernelEvents::VIEW      => [['onKernelView', Application::LATE_EVENT]],
         ];
     }
 }
