@@ -12,12 +12,12 @@ use Yolo\DependencyInjection\YoloExtension;
 function createContainer(array $parameters = [], array $extensions = [])
 {
     $container = new ContainerBuilder();
+    $container->getParameterBag()->add($parameters);
+
     $container->registerExtension(new YoloExtension());
     foreach ($extensions as $extension) {
         $container->registerExtension($extension);
     }
-
-    $container->getParameterBag()->add($parameters);
 
     foreach ($container->getExtensions() as $extension) {
         $container->loadFromExtension($extension->getAlias());
