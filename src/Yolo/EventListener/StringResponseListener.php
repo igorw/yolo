@@ -18,7 +18,7 @@ class StringResponseListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW      => [['onKernelView', -512]],
+            KernelEvents::VIEW      => [['onKernelView', Application::EARLY_EVENT]],
         ];
     }
 }
