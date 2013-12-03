@@ -1,4 +1,4 @@
-<?php
+<?php #YOLO
 
 namespace Yolo;
 
