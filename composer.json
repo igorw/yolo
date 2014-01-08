@@ -24,8 +24,8 @@
         "whatthejeff/fab-phpunit-resultprinter": "1.0.*"
     },
     "autoload": {
-        "psr-0": { "Yolo": "src" },
-        "files": ["src/Yolo/functions.php"]
+        "psr-4": { "Yolo\\": "src" },
+        "files": ["src/functions.php"]
     },
     "extra": {
         "branch-alias": { "dev-master": "42.0.x-dev" }
