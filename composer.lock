@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a3e9fb5c77856f1037675a8613346a54",
+    "hash": "71a5a01ee338a28e91a30f5ced0d22e7",
     "packages": [
         {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-fig/log",
-                "reference": "1.0.0"
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/php-fig/log/archive/1.0.0.zip",
-                "reference": "1.0.0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
                 "shasum": ""
             },
             "type": "library",
@@ -612,13 +612,13 @@
             "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/whatthejeff/fab",
-                "reference": "v1.0.0"
+                "url": "https://github.com/whatthejeff/fab.git",
+                "reference": "1f9d9cdc354cabda0d7b72b7e2ab5fdfb747b8ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whatthejeff/fab/zipball/v1.0.0",
-                "reference": "v1.0.0",
+                "url": "https://api.github.com/repos/whatthejeff/fab/zipball/1f9d9cdc354cabda0d7b72b7e2ab5fdfb747b8ef",
+                "reference": "1f9d9cdc354cabda0d7b72b7e2ab5fdfb747b8ef",
                 "shasum": ""
             },
             "require": {
@@ -664,12 +664,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/whatthejeff/fab-phpunit-resultprinter.git",
-                "reference": "v1.0.1"
+                "reference": "7a89f4d21651ad0ac951adaa9ed71825dc8207d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whatthejeff/fab-phpunit-resultprinter/zipball/v1.0.1",
-                "reference": "v1.0.1",
+                "url": "https://api.github.com/repos/whatthejeff/fab-phpunit-resultprinter/zipball/7a89f4d21651ad0ac951adaa9ed71825dc8207d1",
+                "reference": "7a89f4d21651ad0ac951adaa9ed71825dc8207d1",
                 "shasum": ""
             },
             "require": {
