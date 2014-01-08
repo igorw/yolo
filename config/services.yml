@@ -41,6 +41,9 @@ services:
     request_context:
         class: Symfony\Component\Routing\RequestContext
 
+    request_stack:
+        class: Symfony\Component\HttpFoundation\RequestStack
+
     exception_controller:
         class: Yolo\ExceptionController
         arguments:
@@ -57,6 +60,7 @@ services:
             - @url_matcher
             - @request_context
             - @?logger
+            - @request_stack
         tags:
             - { name: kernel.event_subscriber }
 
