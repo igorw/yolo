@@ -8,6 +8,4 @@ interpreted as described in [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt).
 
 ## Pull requests
 
-* Pull requests **MUST** include at least one animated gif or at least one
-  piece of ASCII art in the description.
-* Pull requests **MUST** include full test coverage for code being introduced.
+* Pull requests **MUST** include at least one animated gif in the description.
