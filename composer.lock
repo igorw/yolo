@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3ce26ed73ecd1189b4fd467bf96d3fda",
+    "hash": "3aab7202dab95fd2155860e6d89880c5",
     "packages": [
         {
             "name": "symfony/http-foundation",
@@ -56,6 +56,45 @@
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
             "time": "2014-02-11 15:39:28"
+        },
+        {
+            "name": "videlalvaro/phacterl",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/videlalvaro/phacterl.git",
+                "reference": "214d564b0cca3c9827c70b90a2019a4f99fb841b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/videlalvaro/phacterl/zipball/214d564b0cca3c9827c70b90a2019a4f99fb841b",
+                "reference": "214d564b0cca3c9827c70b90a2019a4f99fb841b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phacterl\\": "src/Phacterl"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alvaro Videla",
+                    "email": "videlalvaro@gmail.com",
+                    "homepage": "http://videlalvaro.github.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Actor Model, in PHP",
+            "homepage": "https://github.com/videlalvaro/phacterl",
+            "time": "2014-03-24 20:36:11"
         }
     ],
     "packages-dev": [
@@ -233,9 +272,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "videlalvaro/phacterl": 20
+    },
     "platform": {
         "php": ">=5.4.0"
     },
