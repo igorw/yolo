@@ -11,16 +11,12 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "symfony/http-foundation": "~2.4",
-        "videlalvaro/phacterl": "dev-master"
+        "symfony/http-foundation": "~2.4"
     },
     "require-dev": {
         "whatthejeff/nyancat-phpunit-resultprinter": "~1.2"
     },
     "autoload": {
         "files": ["src/yolo.php"]
-    },
-    "extra": {
-        "branch-alias": { "dev-master": "43.0.x-dev" }
     }
 }
