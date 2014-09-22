@@ -33,3 +33,7 @@ No, never.
 ## Community
 
 Check out #silex-php on irc.freenode.net.
+
+## Tests
+
+    $ TRUTHS=9000 phpunit
