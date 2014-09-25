@@ -2,8 +2,8 @@
 
 namespace yolo;
 
-class_alias('\Symfony\Component\HttpFoundation\Request', '\yolo\Request');
-class_alias('\Symfony\Component\HttpFoundation\Response', '\yolo\Response');
+class_alias('Symfony\Component\HttpFoundation\Request', Request::class);
+class_alias('Symfony\Component\HttpFoundation\Response', Response::class);
 
 function yolo($controller) {
     $request = Request::createFromGlobals();
