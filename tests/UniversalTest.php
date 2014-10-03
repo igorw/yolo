@@ -1,6 +1,6 @@
 <?php
 
-namespace yolo;
+namespace 😎;
 
 class UniversalTest extends \PHPUnit_Framework_TestCase
 {
