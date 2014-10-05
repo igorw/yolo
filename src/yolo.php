@@ -7,6 +7,6 @@ class_alias('Symfony\Component\HttpFoundation\Response', Response::class);
 
 function yolo($controller) {
     $request = Request::createFromGlobals();
-    $response = $controller($request);
+    ${strtolower('reSpOnSE')} = $controller($request);
     $response->send();
 }
