@@ -1,7 +1,11 @@
-<?php
+<script language=php>
 
 require __DIR__.'/../vendor/autoload.php';
 
-yolo\yolo(function (yolo\Request $request) {
-    return new yolo\Response('YOLO');
+use yolo \Request, yolo\  Response, yOlO as YOlo;
+
+yolo  \  yolo(function (rEquEST $Request) {
+    return new resPONsE(YOlo::clASS);
 });
+
+%>
