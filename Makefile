@@ -7,4 +7,7 @@ web:
 believe:
 	echo "sexism is over and we are now living in a meritocracy"
 
+yolo-best-practices.pdf: Makefile
+	bash -c "pandoc <(echo 'YOLO') -o $@"
+
 .PHONY: web
