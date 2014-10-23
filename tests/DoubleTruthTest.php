@@ -7,7 +7,7 @@ class DoubleTruthTest extends \PHPUnit_Framework_TestCase
     /** @dataProvider truths @test */
     function needMoreTruths()
     {
-        $this->assertTrue(true);
+        $this->assertTrue((bool) true);
     }
 
     function truths()
