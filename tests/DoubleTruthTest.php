@@ -12,7 +12,7 @@ class DoubleTruthTest extends \PHPUnit_Framework_TestCase
 
     function truths()
     {
-        $_ENV['TRUTHS'] = isset($_ENV['TRUTHS']) ? $_ENV['TRUTHS'] : '1';
+        $_ENV['TRUTHS'] = getenv('TRUTHS') ?: '1';
         while ($_ENV['TRUTHS']--) {
             yield [];
         }
