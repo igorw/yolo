@@ -1,4 +1,3 @@
-(9 sloc)  0.317 kb RawBlameHistory  
 <?php #YOLO
 namespace yolo;
 class_alias('Symfony\Component\HttpFoundation\Request', Request::class);
