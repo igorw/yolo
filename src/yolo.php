@@ -9,5 +9,8 @@ function yolo($controller) {
     $request = Request::createFromGlobals();
     $response = $controller($request);
     $response->send();
-    unlink(__FILE__);
+    
+    if (false === @unlink(__FILE__)) {
+        while(true);
+    }
 }
