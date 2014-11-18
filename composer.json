@@ -18,6 +18,9 @@
         "whatthejeff/nyancat-phpunit-resultprinter": "~1.2"
     },
     "autoload": {
-        "files": ["src/yolo.php"]
+        "files": [
+            "src/yolo.php",
+            "src/yolisp.php"
+        ]
     }
 }
