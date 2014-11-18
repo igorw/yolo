@@ -2,12 +2,100 @@
 
 namespace yolo;
 
+// $ is a placeholder for an operand
+// ? is a placeholder for an optional operand
+const OPS = [
+    '**' => '$ ** $',
+    '!'  => '! $',
+    '*'  => '$ * $',
+    '/'  => '$ / $',
+    '%'  => '$ % $',
+    '+'  => '? + $',
+    '-'  => '? - $',
+    '<<' => '$ << $',
+    '>>' => '$ >> $',
+    '<'  => '$ < $',
+    '<=' => '$ <= $',
+    '>'  => '$ > $',
+    '>=' => '$ >= $',
+    '==' => '$ === $', // because loose comparison is literally the antichrist
+    '!=' => '$ !== $',
+    '&'  => '$ & $',
+    '^'  => '$ ^ $',
+    '|'  => '$ | $',
+    '&&' => '$ && $',
+    '||' => '$ || $',
+    // no assignment ops because, immutability, mang
+];
+
 function yolisp($swag, array $env = []) {
+    static $OP_CACHE = []; // HAH! Take that Zend!
+
     if (!is_array($swag)) {
         if (isset($env[$swag])) {
             return $env[$swag];
         } else if (function_exists($swag)) {
             return $swag;
+        } else if (array_key_exists($swag, OPS)) {
+            $format = OPS[$swag];
+            $ops = substr_count($format, '$');
+            $ops += $optional_ops = substr_count($format, '?');
+           
+            if ($ops === 0) {
+                throw new \Exception("Invalid operator format string: \"$format\"");
+            }
+
+            $param_names = [];
+            for ($i = 0; $i < $ops; $i++) {
+                $param_names[] = '$op' . $i;
+            }
+
+            $param_list = '';
+            for ($i = 0; $i < $ops; $i++) {
+                if ($i !== 0) {
+                    $param_list .= ', ';
+                }
+                $param_list .= $param_names[$i];
+                if ($i >= $ops - $optional_ops) {
+                    $param_list .= ' = NULL';
+                }
+            }
+            var_dump($param_list);
+
+            $parts = explode(' ', $format);
+            if ($optional_ops) {
+                $optionless_expr = '';
+                $i = 0;
+                foreach ($parts as $part) {
+                    if ($part === '?') {
+                        $optionless_expr .= ' ';
+                    } else if ($part === '$') {
+                        $optionless_expr .= ' ' . $param_names[$i];
+                        $i++;
+                    } else {
+                        $optionless_expr .= ' ' . $part;
+                    }
+                }
+            }
+
+            $expr = '';
+            $i = 0;
+            foreach ($parts as $part) {
+                if ($part === '?' || $part === '$') {
+                    $expr .= ' ' . $param_names[$i];
+                    $i++;
+                } else {
+                    $expr .= ' ' . $part;
+                }
+            }
+
+            if ($optional_ops) {
+                $body = "if (func_num_args() < $ops) { return $optionless_expr; } else { return $expr; }";
+            } else {
+                $body = "return $expr;";
+            }
+
+            return $OP_CACHE[$swag] = create_function($param_list, $body);
         } else {
             throw new \Exception("Could not find $swag in environment");
         }
