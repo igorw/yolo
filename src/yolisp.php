@@ -34,6 +34,5 @@ function yolisp($swag, array $env = []) {
             $func = yolisp($command);
             $evaluated_args = array_map('yolo\yolisp', $args);
             return $func(...$evaluated_args);
-            break;
     }
 }
