@@ -22,8 +22,7 @@ function yolisp($swag, array $env = []) {
             return $args[0];
         case 'lambda':
             list($arg_names, $body) = $args;
-            return function () use ($arg_names, $body, $env) {
-                $args = func_get_args();
+            return function (...$args) use ($arg_names, $body, $env) {
                 foreach ($arg_names as $i => $arg_name) {
                     $env[$arg_name] = $args[$i];
                 }
@@ -31,11 +30,12 @@ function yolisp($swag, array $env = []) {
             };
         case 'new':
             list($class_name, $constructor_args) = $args;
-            $ref = new \ReflectionClass($class_name);
             $evaluated_args = array_map('yolo\yolisp', $constructor_args);
-            return call_user_func([$ref, 'newInstanceArgs'], $evaluated_args);
+            return new $class_name(...$evaluated_args);
         default:
-            return call_user_func_array(yolisp($command), array_map('yolo\yolisp', $args));
+            $func = yolisp($command);
+            $evaluated_args = array_map('yolo\yolisp', $args);
+            return $func(...$evaluated_args);
             break;
     }
 }

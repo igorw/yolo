@@ -12,4 +12,3 @@ yolo\yolisp(['yolo\yolo',
     ]
 ]);
 
-%>
