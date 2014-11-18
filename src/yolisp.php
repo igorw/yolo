@@ -36,6 +36,10 @@ function yolisp($swag, array $env = []) {
             return $env[$swag];
         } else if (function_exists($swag)) {
             return $swag;
+        // we do class lookup after function lookup because everyone knows functional programming is superior
+        // what did you expect? this is yolisp, not yojava
+        } else if (class_exists($swag)) {
+            return $swag;
         } else if (array_key_exists($swag, OPS)) {
             $format = OPS[$swag];
             $ops = substr_count($format, '$');
@@ -119,7 +123,8 @@ function yolisp($swag, array $env = []) {
                 return yolisp($body, $env);
             };
         case 'new':
-            list($class_name, $constructor_args) = $args;
+            list($class, $constructor_args) = $args;
+            $class_name = $eval($class);
             $evaluated_args = array_map($eval, $constructor_args);
             return new $class_name(...$evaluated_args);
         default:
