@@ -64,7 +64,6 @@ function yolisp($swag, array $env = []) {
                     $param_list .= ' = NULL';
                 }
             }
-            var_dump($param_list);
 
             $parts = explode(' ', $format);
             if ($optional_ops) {
