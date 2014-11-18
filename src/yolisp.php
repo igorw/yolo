@@ -13,6 +13,10 @@ function yolisp($swag, array $env = []) {
         }
     }
 
+    $eval = function ($swag) use ($env) {
+        return yolisp($swag, $env);
+    };
+
     $command = $swag[0];
     $args = array_slice($swag, 1);
     switch ($command) {
@@ -28,11 +32,11 @@ function yolisp($swag, array $env = []) {
             };
         case 'new':
             list($class_name, $constructor_args) = $args;
-            $evaluated_args = array_map('yolo\yolisp', $constructor_args);
+            $evaluated_args = array_map($eval, $constructor_args);
             return new $class_name(...$evaluated_args);
         default:
-            $func = yolisp($command);
-            $evaluated_args = array_map('yolo\yolisp', $args);
+            $func = $eval($command);
+            $evaluated_args = array_map($eval, $args);
             return $func(...$evaluated_args);
     }
 }
