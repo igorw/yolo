@@ -2,8 +2,6 @@
 
 namespace yolo;
 
-class Yolisp {}
-
 function yolisp($swag, array $env = []) {
     if (!is_array($swag)) {
         if (isset($env[$swag])) {
