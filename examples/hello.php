@@ -1,11 +1,13 @@
 <script language=php>
 
-require __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
-use yolo \Request, yolo\  Response, yOlO as YOlo;
-
-yolo  \  yolo(function (rEquEST $Request) {
-    return new resPONsE(YOlo::clASS);
-});
+yolo\yolisp(['yolo\yolo',
+    ['lambda', ['request'], 
+        ['new', 'yolo\Response', [
+            ['quote', 'yolo']
+        ]]
+    ]
+]);
 
 %>
