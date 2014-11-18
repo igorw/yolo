@@ -99,6 +99,7 @@ function yolisp($swag, array $env = []) {
                 $body = "return $expr;";
             }
 
+            // And people said eval() and create_function() were evil!
             return $OP_CACHE[$swag] = create_function($param_list, $body);
         } else {
             throw new \Exception("Could not find $swag in environment");
