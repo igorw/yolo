@@ -2,7 +2,7 @@
 
 namespace yolo;
 
-class DoubleTruthTest extends \PHPUnit_Framework_TestCase
+class DoubleTruthTest extends YoloTestCase
 {
     /** @dataProvider truths @test */
     function needMoreTruths()

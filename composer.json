@@ -21,6 +21,9 @@
         "files": [
             "src/yolo.php",
             "src/yolisp.php"
-        ]
+        ],
+        "psr-4": {
+            "yolo\\": "tests"
+        }
     }
 }
