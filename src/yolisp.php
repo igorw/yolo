@@ -28,10 +28,82 @@ const OPS = [
     // no assignment ops because, immutability, mang
 ];
 
-function yolisp($swag, array $env = []) {
+const DEFAULT_ENV = [
+    'car'  => 'yolo\car',
+    'cdr'  => 'yolo\cdr',
+    'cons' => 'yolo\cons',
+    'nil'  => NULL
+];
+
+function car(array $cell) {
+    return $cell[0];
+}
+
+function cdr(array $cell) {
+    return isset($cell[1]) ? $cell[1] : NULL;
+}
+
+function cons($first, $rest) {
+    return [$first, $rest];
+}
+
+function lisprint($item) {
+    if (is_array($item)) {
+        echo "(";
+        $first = true;
+        while ($item !== NULL) {
+            if ($first) {
+                $first = false;
+            } else {
+                echo " ";
+            }
+            lisprint(car($item));
+            $item = cdr($item);
+        }
+        echo ")";
+    } else if (is_null($item)) {
+        echo 'nil';
+    } else {
+        echo $item;
+    }
+}
+
+// Unwinds a yolisp list into an array
+function x(array $list) {
+    $array = [];
+    while ($list !== NULL) {
+        $array[] = car($list);
+        $list = cdr($list);
+    }
+    return $array;
+}
+
+// Makes a yolisp list from the parameters
+function y($param, ...$params) {
+    // take the yolo pill and you will see how far the rabbit hole goes
+    return cons($param, empty($params) ? NULL : y(...$params));
+}
+
+// Quotes a value for you
+function q($value) {
+    return y('quote', $value);
+}
+
+// $env is an associative array, not a list of cons cells
+function yolisp($swag, array $env = NULL) { 
     static $OP_CACHE = []; // HAH! Take that Zend!
 
+    if ($env === NULL) {
+        $env = DEFAULT_ENV;
+    }
+
     if (!is_array($swag)) {
+        // implicitly quote numbers
+        if (is_int($swag) || is_float($swag)) {
+            return $swag;
+        }
+
+        // lookup in environment
         if (isset($env[$swag])) {
             return $env[$swag];
         } else if (function_exists($swag)) {
@@ -109,13 +181,12 @@ function yolisp($swag, array $env = []) {
         return yolisp($swag, $env);
     };
 
-    $command = $swag[0];
-    $args = array_slice($swag, 1);
+    list($command, $args) = $swag;
     switch ($command) {
         case 'quote':
-            return $args[0];
+            return car($args);
         case 'lambda':
-            list($arg_names, $body) = $args;
+            list($arg_names, list($body)) = $args;
             return function (...$args) use ($arg_names, $body, $env) {
                 foreach ($arg_names as $i => $arg_name) {
                     $env[$arg_name] = $args[$i];
@@ -125,11 +196,11 @@ function yolisp($swag, array $env = []) {
         case 'new':
             list($class, $constructor_args) = $args;
             $class_name = $eval($class);
-            $evaluated_args = array_map($eval, $constructor_args);
+            $evaluated_args = array_map($eval, x($constructor_args));
             return new $class_name(...$evaluated_args);
         default:
             $func = $eval($command);
-            $evaluated_args = array_map($eval, $args);
+            $evaluated_args = array_map($eval, x($args));
             return $func(...$evaluated_args);
     }
 }
