@@ -28,10 +28,87 @@ const OPS = [
     // no assignment ops because, immutability, mang
 ];
 
-function yolisp($swag, array $env = []) {
+// lowercase class name for maximum #swag
+final class cons {
+    private $car, $cdr;
+
+    private function __construct() {}
+
+    public static function cons($car, $cdr) {
+        $cons = new cons;
+        $cons->car = $car;
+        $cons->cdr = $cdr;
+        return $cons;
+    }
+
+    public static function car(cons $cons) {
+        return $cons->car;
+    }
+
+    public static function cdr(cons $cons) {
+        return $cons->cdr;
+    }
+}
+
+const DEFAULT_ENV = [
+    'car'  => ['yolo\cons', 'car'],
+    'cdr'  => ['yolo\cons', 'cdr'],
+    'cons' => ['yolo\cons', 'cons'],
+    'nil'  => NULL
+];
+
+function lisprint($item) {
+    if ($item instanceof cons) {
+        echo "(";
+        $first = true;
+        while ($item !== NULL) {
+            if ($first) {
+                $first = false;
+            } else {
+                echo " ";
+            }
+            lisprint(cons::car($item));
+            $item = cons::cdr($item);
+        }
+        echo ")";
+    } else if (is_null($item)) {
+        echo 'nil';
+    } else {
+        echo $item;
+    }
+}
+
+// Unwinds a yolisp list into an array
+function x(cons $list = NULL){
+    $array = [];
+    while ($list !== NULL) {
+        $array[] = cons::car($list);
+        $list = cons::cdr($list);
+    }
+    return $array;
+}
+
+// Makes a yolisp list from the parameters
+function y($param, ...$params) {
+    // take the yolo pill and you will see how far the rabbit hole goes
+    return cons::cons($param, empty($params) ? NULL : y(...$params));
+}
+
+// $env is an associative array, not a list of cons conss
+function yolisp($swag, array $env = NULL) { 
     static $OP_CACHE = []; // HAH! Take that Zend!
 
-    if (!is_array($swag)) {
+    if ($env === NULL) {
+        $env = DEFAULT_ENV;
+    }
+
+    if (!$swag instanceof cons) {
+        // implicitly quote non-strings
+        if (!is_string($swag)) {
+            return $swag;
+        }
+
+        // lookup in environment
         if (isset($env[$swag])) {
             return $env[$swag];
         } else if (function_exists($swag)) {
@@ -109,13 +186,14 @@ function yolisp($swag, array $env = []) {
         return yolisp($swag, $env);
     };
 
-    $command = $swag[0];
-    $args = array_slice($swag, 1);
+    $command = cons::car($swag);
+    $args = cons::cdr($swag);
     switch ($command) {
         case 'quote':
-            return $args[0];
+            return cons::car($args);
         case 'lambda':
-            list($arg_names, $body) = $args;
+            $arg_names = cons::car($args);
+            $body = cons::car(cons::cdr($args));
             return function (...$args) use ($arg_names, $body, $env) {
                 foreach ($arg_names as $i => $arg_name) {
                     $env[$arg_name] = $args[$i];
@@ -123,13 +201,38 @@ function yolisp($swag, array $env = []) {
                 return yolisp($body, $env);
             };
         case 'new':
-            list($class, $constructor_args) = $args;
+            $class = cons::car($args);
+            $constructor_args = cons::car(cons::cdr($args));
             $class_name = $eval($class);
-            $evaluated_args = array_map($eval, $constructor_args);
+            $evaluated_args = array_map($eval, x($constructor_args));
             return new $class_name(...$evaluated_args);
+        case 'let':
+            $pairs = cons::car($args);
+            $body = cons::car(cons::cdr($args));
+            while (!is_null($pairs)) {
+                // we use a cons not a 2-element list because 2-element lists are stupid
+                // seriously why waste an extra cons when you don't need it
+                // (a . b) >>>> (a . (b . nil))
+                // yolisp officially more efficient than Scheme
+                $pair = cons::car($pairs);
+                $env[cons::car($pair)] = $eval(cons::cdr($pair));
+                $pairs = cons::cdr($pairs);
+            }
+            return yolisp($body, $env);
+        case 'if':
+            $expr = cons::car($args);
+            $results = cons::cdr($args);
+            $on_true = cons::car($results);
+            $on_false = cons::car(cons::cdr($results));
+            if ($eval($expr)) {
+                return $eval($on_true);
+            } else {
+                return $eval($on_false);
+            }
+            break;
         default:
             $func = $eval($command);
-            $evaluated_args = array_map($eval, $args);
+            $evaluated_args = array_map($eval, x($args));
             return $func(...$evaluated_args);
     }
 }
