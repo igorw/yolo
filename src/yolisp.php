@@ -94,7 +94,6 @@ function y($param, ...$params) {
     return cons::cons($param, empty($params) ? NULL : y(...$params));
 }
 
-// $env is an associative array, not a list of cons conss
 function yolisp($swag, array $env = NULL) { 
     static $OP_CACHE = []; // HAH! Take that Zend!
 
