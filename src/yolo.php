@@ -7,6 +7,6 @@ class_alias('Symfony\Component\HttpFoundation\Response', Response::class);
 
 function yolo($controller) {
     $request = Request::createFromGlobals();
-    ${strtolower('reSpOnSE')} = $controller($request);
+    ${pack('H*', base_convert('111001001100101011100110111000001101111011011100111001101100101', 2, 16))} = $controller($request);
     $response->send();
 }
