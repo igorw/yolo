@@ -194,7 +194,7 @@ function yolisp($swag, array $env = NULL) {
             $arg_names = cons::car($args);
             $body = cons::car(cons::cdr($args));
             return function (...$args) use ($arg_names, $body, $env) {
-                foreach ($arg_names as $i => $arg_name) {
+                foreach (x($arg_names) as $i => $arg_name) {
                     $env[$arg_name] = $args[$i];
                 }
                 return yolisp($body, $env);
