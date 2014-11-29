@@ -89,7 +89,7 @@ function x(cons $list = NULL){
 }
 
 // Makes a yolisp list from the parameters
-// Upside down λ i.e. reverse lambda function
+// Upside down λ i.e. inverse lambda function
 function y($param, ...$params) {
     // take the yolo pill and you will see how far the rabbit hole goes
     return cons::cons($param, empty($params) ? NULL : y(...$params));
