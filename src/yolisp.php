@@ -111,17 +111,19 @@ function yolisp($swag, array $env = []) {
         // lookup in environment
         if (isset($env[$swag])) {
             return $env[$swag];
+        } else if (isset($OP_CACHE[$swag])) {
+            return $OP_CACHE[$swag];
         } else if (array_key_exists($swag, DEFAULT_ENV)) {
             $callable = DEFAULT_ENV[$swag];
             if (is_array($callable)) {
-                return (new \ReflectionMethod(...$callable))->getClosure();
+                return $OP_CACHE[$swag] = (new \ReflectionMethod(...$callable))->getClosure();
             } else if (is_string($callable)) {
-                return (new \ReflectionFunction($callable))->getClosure();
+                return $OP_CACHE[$swag] = (new \ReflectionFunction($callable))->getClosure();
             } else {
                 return $callable;
             }
         } else if (function_exists($swag)) {
-            return (new \ReflectionFunction($swag))->getClosure();
+            return $OP_CACHE[$swag] = (new \ReflectionFunction($swag))->getClosure();
         // we do class lookup after function lookup because everyone knows functional programming is superior
         // what did you expect? this is yolisp, not yojava
         } else if (class_exists($swag)) {
