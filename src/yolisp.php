@@ -219,7 +219,7 @@ function yolisp($swag, array $env = []) {
                 $env[cons::car($pair)] = $eval(cons::car(cons::cdr($pair)));
                 $pairs = cons::cdr($pairs);
             }
-            return yolisp($body, $env);
+            return $eval($body);
         case 'if':
             $expr = cons::car($args);
             $results = cons::cdr($args);
