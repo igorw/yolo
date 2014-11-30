@@ -90,7 +90,10 @@ function x(cons $list = NULL){
 
 // Makes a yolisp list from the parameters
 // Upside down λ i.e. inverse lambda function
-function y($param, ...$params) {
+function y($param = NULL, ...$params) {
+    if (func_num_args() == 0) {
+        return NULL;
+    }
     // take the yolo pill and you will see how far the rabbit hole goes
     return cons::cons($param, empty($params) ? NULL : y(...$params));
 }
@@ -200,12 +203,6 @@ function yolisp($swag, array $env = NULL) {
                 }
                 return yolisp($body, $env);
             };
-        case 'new':
-            $class = cons::car($args);
-            $constructor_args = cons::car(cons::cdr($args));
-            $class_name = $eval($class);
-            $evaluated_args = array_map($eval, x($constructor_args));
-            return new $class_name(...$evaluated_args);
         case 'let':
             $pairs = cons::car($args);
             $body = cons::car(cons::cdr($args));
@@ -226,6 +223,12 @@ function yolisp($swag, array $env = NULL) {
                 return $eval($on_false);
             }
             break;
+        case 'new':
+            $class = cons::car($args);
+            $constructor_args = cons::car(cons::cdr($args));
+            $class_name = $eval($class);
+            $evaluated_args = array_map($eval, x($constructor_args));
+            return new $class_name(...$evaluated_args);
         default:
             $func = $eval($command);
             $evaluated_args = array_map($eval, x($args));
