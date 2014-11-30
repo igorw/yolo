@@ -99,12 +99,8 @@ function y($param = NULL, ...$params) {
     return cons::cons($param, empty($params) ? NULL : y(...$params));
 }
 
-function yolisp($swag, array $env = NULL) { 
+function yolisp($swag, array $env = []) { 
     static $OP_CACHE = []; // HAH! Take that Zend!
-
-    if ($env === NULL) {
-        $env = DEFAULT_ENV;
-    }
 
     if (!$swag instanceof cons) {
         // implicitly quote non-strings
@@ -115,8 +111,17 @@ function yolisp($swag, array $env = NULL) {
         // lookup in environment
         if (isset($env[$swag])) {
             return $env[$swag];
+        } else if (array_key_exists($swag, DEFAULT_ENV)) {
+            $callable = DEFAULT_ENV[$swag];
+            if (is_array($callable)) {
+                return (new \ReflectionMethod(...$callable))->getClosure();
+            } else if (is_string($callable)) {
+                return (new \ReflectionFunction($callable))->getClosure();
+            } else {
+                return $callable;
+            }
         } else if (function_exists($swag)) {
-            return $swag;
+            return (new \ReflectionFunction($swag))->getClosure();
         // we do class lookup after function lookup because everyone knows functional programming is superior
         // what did you expect? this is yolisp, not yojava
         } else if (class_exists($swag)) {
@@ -229,25 +234,25 @@ function yolisp($swag, array $env = NULL) {
         case '::':
             $obj = $eval(cons::car($args));
             $prop = cons::car(cons::cdr($args));
-            if ($command === '->') {
-                return $obj->$prop;
+            if (property_exists($obj, $prop)) {
+                if ($command === '->') {
+                    return $obj->$prop;
+                } else {
+                    // this is really ugly syntax for a variable static property access
+                    // luckily yolo users don't need to deal with it
+                    return $obj::${$prop};
+                }
+            // PHP has separate symbol tables for methods and properties
+            // NOT IN YOLISP!
+            } else if (method_exists($obj, $prop)) {
+                $method = new \ReflectionMethod($obj, $prop);
+                if ($command === '->') {
+                    return $method->getClosure($obj);
+                } else {
+                    return $method->getClosure();
+                }
             } else {
-                // this is really ugly syntax for a variable static property access
-                // luckily yolo users don't need to deal with it
-                return $obj::${$prop};
-            }
-            break;
-        case '->()':
-        case '::()':
-            $obj = $eval(cons::car($args));
-            $bits = cons::cdr($args);
-            $method = cons::car($bits);
-            $method_args = cons::cdr($bits);
-            $evaluated_args = array_map($eval, x($method_args));
-            if ($command === '->()') {
-                return $obj->$method(...$evaluated_args);
-            } else {
-                return $obj::{$method}(...$evaluated_args);
+                throw new \Exception("No property/method $command$prop in $obj");
             }
             break;
         case 'new':
