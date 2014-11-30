@@ -223,9 +223,35 @@ function yolisp($swag, array $env = NULL) {
                 return $eval($on_false);
             }
             break;
+        // -> and :: aren't normal ops as property name is implicitly quoted
+        case '->':
+        case '::':
+            $obj = $eval(cons::car($args));
+            $prop = cons::car(cons::cdr($args));
+            if ($command === '->') {
+                return $obj->$prop;
+            } else {
+                // this is really ugly syntax for a variable static property access
+                // luckily yolo users don't need to deal with it
+                return $obj::${$prop};
+            }
+            break;
+        case '->()':
+        case '::()':
+            $obj = $eval(cons::car($args));
+            $bits = cons::cdr($args);
+            $method = cons::car($bits);
+            $method_args = cons::cdr($bits);
+            $evaluated_args = array_map($eval, x($method_args));
+            if ($command === '->()') {
+                return $obj->$method(...$evaluated_args);
+            } else {
+                return $obj::{$method}(...$evaluated_args);
+            }
+            break;
         case 'new':
             $class = cons::car($args);
-            $constructor_args = cons::car(cons::cdr($args));
+            $constructor_args = cons::cdr($args);
             $class_name = $eval($class);
             $evaluated_args = array_map($eval, x($constructor_args));
             return new $class_name(...$evaluated_args);
