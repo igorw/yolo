@@ -7,7 +7,7 @@ class_alias('Symfony\Component\HttpFoundation\Response', Response::class);
 
 class YoloException extends \RuntimeException {}
 
-function yolo($controller) {
+function yolo(...$args) {
     static $lo = false;
     
     if ($lo) {
@@ -16,7 +16,14 @@ function yolo($controller) {
         $lo = true;
     }
 
-    $request = Request::createFromGlobals();
-    ${pack('H*', base_convert('111001001100101011100110111000001101111011011100111001101100101', 2, 16))} = $controller($request);
-    $response->send();
+    $yolo = yolisp(y('lambda', y('controller'),
+        y('let', 
+            y(
+                y('request', y(y('::', Request::class, 'createFromGlobals'))),
+                y(pack('H*', base_convert('111001001100101011100110111000001101111011011100111001101100101', 2, 16)), y('controller', 'request'))
+            ),
+            y(y('->', 'response', 'send'))
+        )
+    ));
+    return $yolo(...$args);
 }

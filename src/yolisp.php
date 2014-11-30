@@ -193,7 +193,7 @@ function yolisp($swag, array $env = []) {
         }
     }
 
-    $eval = function ($swag) use ($env) {
+    $eval = function ($swag) use (&$env) {
         return yolisp($swag, $env);
     };
 
