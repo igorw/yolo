@@ -210,12 +210,8 @@ function yolisp($swag, array $env = NULL) {
             $pairs = cons::car($args);
             $body = cons::car(cons::cdr($args));
             while (!is_null($pairs)) {
-                // we use a cons not a 2-element list because 2-element lists are stupid
-                // seriously why waste an extra cons when you don't need it
-                // (a . b) >>>> (a . (b . nil))
-                // yolisp officially more efficient than Scheme
-                $pair = cons::car($pairs);
-                $env[cons::car($pair)] = $eval(cons::cdr($pair));
+                $pair = cons::car($pairs); // (name value) 2-element list
+                $env[cons::car($pair)] = $eval(cons::car(cons::cdr($pair)));
                 $pairs = cons::cdr($pairs);
             }
             return yolisp($body, $env);
