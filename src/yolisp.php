@@ -54,6 +54,7 @@ const DEFAULT_ENV = [
     'car'  => ['yolo\cons', 'car'],
     'cdr'  => ['yolo\cons', 'cdr'],
     'cons' => ['yolo\cons', 'cons'],
+    'list' => 'yolo\y',
     'nil'  => NULL
 ];
 
@@ -90,17 +91,16 @@ function x(cons $list = NULL){
 
 // Makes a yolisp list from the parameters
 // Upside down λ i.e. inverse lambda function
-function y($param, ...$params) {
+function y($param = NULL, ...$params) {
+    if (func_num_args() == 0) {
+        return NULL;
+    }
     // take the yolo pill and you will see how far the rabbit hole goes
     return cons::cons($param, empty($params) ? NULL : y(...$params));
 }
 
-function yolisp($swag, array $env = NULL) { 
+function yolisp($swag, array $env = []) { 
     static $OP_CACHE = []; // HAH! Take that Zend!
-
-    if ($env === NULL) {
-        $env = DEFAULT_ENV;
-    }
 
     if (!$swag instanceof cons) {
         // implicitly quote non-strings
@@ -111,8 +111,17 @@ function yolisp($swag, array $env = NULL) {
         // lookup in environment
         if (isset($env[$swag])) {
             return $env[$swag];
+        } else if (array_key_exists($swag, DEFAULT_ENV)) {
+            $callable = DEFAULT_ENV[$swag];
+            if (is_array($callable)) {
+                return (new \ReflectionMethod(...$callable))->getClosure();
+            } else if (is_string($callable)) {
+                return (new \ReflectionFunction($callable))->getClosure();
+            } else {
+                return $callable;
+            }
         } else if (function_exists($swag)) {
-            return $swag;
+            return (new \ReflectionFunction($swag))->getClosure();
         // we do class lookup after function lookup because everyone knows functional programming is superior
         // what did you expect? this is yolisp, not yojava
         } else if (class_exists($swag)) {
@@ -200,22 +209,12 @@ function yolisp($swag, array $env = NULL) {
                 }
                 return yolisp($body, $env);
             };
-        case 'new':
-            $class = cons::car($args);
-            $constructor_args = cons::car(cons::cdr($args));
-            $class_name = $eval($class);
-            $evaluated_args = array_map($eval, x($constructor_args));
-            return new $class_name(...$evaluated_args);
         case 'let':
             $pairs = cons::car($args);
             $body = cons::car(cons::cdr($args));
             while (!is_null($pairs)) {
-                // we use a cons not a 2-element list because 2-element lists are stupid
-                // seriously why waste an extra cons when you don't need it
-                // (a . b) >>>> (a . (b . nil))
-                // yolisp officially more efficient than Scheme
-                $pair = cons::car($pairs);
-                $env[cons::car($pair)] = $eval(cons::cdr($pair));
+                $pair = cons::car($pairs); // (name value) 2-element list
+                $env[cons::car($pair)] = $eval(cons::car(cons::cdr($pair)));
                 $pairs = cons::cdr($pairs);
             }
             return yolisp($body, $env);
@@ -230,6 +229,38 @@ function yolisp($swag, array $env = NULL) {
                 return $eval($on_false);
             }
             break;
+        // -> and :: aren't normal ops as property name is implicitly quoted
+        case '->':
+        case '::':
+            $obj = $eval(cons::car($args));
+            $prop = cons::car(cons::cdr($args));
+            if (property_exists($obj, $prop)) {
+                if ($command === '->') {
+                    return $obj->$prop;
+                } else {
+                    // this is really ugly syntax for a variable static property access
+                    // luckily yolo users don't need to deal with it
+                    return $obj::${$prop};
+                }
+            // PHP has separate symbol tables for methods and properties
+            // NOT IN YOLISP!
+            } else if (method_exists($obj, $prop)) {
+                $method = new \ReflectionMethod($obj, $prop);
+                if ($command === '->') {
+                    return $method->getClosure($obj);
+                } else {
+                    return $method->getClosure();
+                }
+            } else {
+                throw new \Exception("No property/method $command$prop in $obj");
+            }
+            break;
+        case 'new':
+            $class = cons::car($args);
+            $constructor_args = cons::cdr($args);
+            $class_name = $eval($class);
+            $evaluated_args = array_map($eval, x($constructor_args));
+            return new $class_name(...$evaluated_args);
         default:
             $func = $eval($command);
             $evaluated_args = array_map($eval, x($args));

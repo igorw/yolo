@@ -6,9 +6,7 @@ use function yolo\y;
 
 yolo\yolisp(y('yolo\yolo',
     y('lambda', y('request'), 
-        y('new', YoLo\resPONsE::clASS, y(
-            y('quote', 'yolo')
-        ))
+        y('new', YoLo\resPONsE::clASS, y('quote', 'yolo'))
     )
 ));
 
