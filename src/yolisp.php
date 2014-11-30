@@ -54,6 +54,7 @@ const DEFAULT_ENV = [
     'car'  => ['yolo\cons', 'car'],
     'cdr'  => ['yolo\cons', 'cdr'],
     'cons' => ['yolo\cons', 'cons'],
+    'list' => 'yolo\y',
     'nil'  => NULL
 ];
 
