@@ -16,7 +16,7 @@ function yolo(...$args) {
         $lo = true;
     }
 
-    $yolo = yolisp(y('lambda', y('controller'),
+    return yolisp(y(y('lambda', y('controller'),
         y('let', 
             y(
                 y('request', y(y('::', Request::class, 'createFromGlobals'))),
@@ -24,6 +24,8 @@ function yolo(...$args) {
             ),
             y(y('->', 'response', 'send'))
         )
-    ));
-    return $yolo(...$args);
+    // PHP 5.6 doesn't support immediately-invoked function expressions
+    // but yolisp does!
+    // also look at dat embedded DSL splat swag
+    ), ...$args));
 }
