@@ -203,11 +203,11 @@ function yolisp($swag, array &$env = []) {
         case 'quote':
             return cons::car($args);
         case 'lambda':
-            $arg_names = cons::car($args);
+            $arg_names = x(cons::car($args));
             $body = cons::car(cons::cdr($args));
             return function (...$args) use ($arg_names, $body, &$env) {
                 $new_env = $env; // copies rather than references
-                foreach (x($arg_names) as $i => $arg_name) {
+                foreach ($arg_names as $i => $arg_name) {
                     $new_env[$arg_name] = $args[$i];
                 }
                 return yolisp($body, $new_env);
