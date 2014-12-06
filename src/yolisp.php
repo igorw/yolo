@@ -99,7 +99,7 @@ function y($param = NULL, ...$params) {
     return cons::cons($param, empty($params) ? NULL : y(...$params));
 }
 
-function yolisp($swag, array $env = []) { 
+function yolisp($swag, array &$env = []) { 
     static $OP_CACHE = []; // HAH! Take that Zend!
 
     if (!$swag instanceof cons) {
@@ -109,7 +109,7 @@ function yolisp($swag, array $env = []) {
         }
 
         // lookup in environment
-        if (isset($env[$swag])) {
+        if (array_key_exists($swag, $env)) {
             return $env[$swag];
         } else if (isset($OP_CACHE[$swag])) {
             return $OP_CACHE[$swag];
@@ -203,23 +203,25 @@ function yolisp($swag, array $env = []) {
         case 'quote':
             return cons::car($args);
         case 'lambda':
-            $arg_names = cons::car($args);
+            $arg_names = x(cons::car($args));
             $body = cons::car(cons::cdr($args));
-            return function (...$args) use ($arg_names, $body, $env) {
-                foreach (x($arg_names) as $i => $arg_name) {
-                    $env[$arg_name] = $args[$i];
+            return function (...$args) use ($arg_names, $body, &$env) {
+                $new_env = $env; // copies rather than references
+                foreach ($arg_names as $i => $arg_name) {
+                    $new_env[$arg_name] = $args[$i];
                 }
-                return yolisp($body, $env);
+                return yolisp($body, $new_env);
             };
         case 'let':
             $pairs = cons::car($args);
             $body = cons::car(cons::cdr($args));
+            $new_env = $env; // copies rather than references
             while (!is_null($pairs)) {
                 $pair = cons::car($pairs); // (name value) 2-element list
-                $env[cons::car($pair)] = $eval(cons::car(cons::cdr($pair)));
+                $new_env[cons::car($pair)] = yolisp(cons::car(cons::cdr($pair)), $new_env);
                 $pairs = cons::cdr($pairs);
             }
-            return $eval($body);
+            return yolisp($body, $new_env);
         case 'if':
             $expr = cons::car($args);
             $results = cons::cdr($args);
