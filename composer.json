@@ -1,7 +1,7 @@
 {
     "name": "igorw/yolo",
     "description": "The microframework with swag.",
-    "keywords": ["useless", "microframework", "academic", "swag"],
+    "keywords": ["useless", "microframework", "academic", "swag", "PHP7"],
     "license": "MIT",
     "authors": [
         {
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "~5.6",
+        "php": "~7.0",
         "symfony/http-foundation": "~2.4"
     },
     "require-dev": {

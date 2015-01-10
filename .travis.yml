@@ -1,13 +1,24 @@
 language: php
 
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get install re2c
+
 before_script:
-    - composer self-update
-    - composer install --dev --prefer-source
+    - ./travis/compile-php7.sh
+    - PATH=`pwd`:$PATH composer self-update
+    # using PHP 7 means stuff depending on ">=5.3.3" etc. breaks
+    # so we make composer ignore it
+    - PATH=`pwd`:$PATH composer install --dev --prefer-source --ignore-platform-reqs
+
+script:
+    # use PHP 7 for the actual tests
+    - PATH=`pwd`:$PATH make test
 
 php:
-  - 5.6
-  - hhvm
+  - 5.6 # lol
+  #- hhvm
 
-matrix:
-  allow_failures:
-    - php: hhvm
+#matrix:
+#  allow_failures:
+#    - php: hhvm
