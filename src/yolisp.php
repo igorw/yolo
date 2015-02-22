@@ -99,6 +99,22 @@ function y($param = NULL, ...$params) {
     return cons::cons($param, empty($params) ? NULL : y(...$params));
 }
 
+function swagify($swag) {
+    $swag = trim($swag);
+    if ('(' !== substr($swag, 0, 1)) {
+        if (preg_match('/^\d+(\.\d+)?$/', $swag, $match)) {
+            $swag = isset($match[1]) ? floatval($swag) : intval($swag);
+        }
+        return $swag;
+    }
+    if (')' !== substr($swag, -1)) {
+        throw new \Exception(sprintf('Syntax error in "%s"', $swag));
+    }
+    $swag = trim(substr($swag, 1, -1));
+    preg_match_all('/((?<=quote )[^)]+|[^ ()]+|\((?R)*\))\s*/', $swag, $matches);
+    return y(...array_map('yolo\\swagify', $matches[1]));
+}
+
 function yolisp($swag, array &$env = []) { 
     static $OP_CACHE = []; // HAH! Take that Zend!
 
