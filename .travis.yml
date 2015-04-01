@@ -17,6 +17,7 @@ script:
 
 php:
   - 5.6 # lol
+  - 6.0
   #- hhvm
 
 #matrix:
