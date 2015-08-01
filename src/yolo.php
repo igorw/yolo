@@ -9,21 +9,23 @@ class YoloException extends \RuntimeException {}
 
 function yolo(...$args) {
     static $lo = false;
-    
-    if ($lo) {
-        throw new YoloException("YOLO");
-    } else {
-        $lo = true;
-    }
 
-    return yolisp(y(y('lambda', y('controller'),
-        y('let', 
-            y(
-                y('request', y(y('::', Request::class, 'createFromGlobals'))),
-                y(pack('H*', base_convert('111001001100101011100110111000001101111011011100111001101100101', 2, 16)), y('controller', 'request'))
-            ),
-            y(y('->', 'response', 'send'))
-        )
+    if (!$lo) {
+        goto YOLO;
+    }
+    throw new YoloException("YOLO");
+
+    YOLO: $lo = true;
+    return yolisp(y(swagify('
+        (lambda (controller)
+            (let
+                (
+                    (request ((:: yolo\request createFromGlobals)))
+                    (response (controller request))
+                )
+                ((-> response send))
+            )
+        )'
     // PHP 5.6 doesn't support immediately-invoked function expressions
     // but yolisp does!
     // also look at dat embedded DSL splat swag
