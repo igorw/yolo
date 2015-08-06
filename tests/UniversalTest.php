@@ -2,7 +2,7 @@
 
 namespace yolo;
 
-class UniversalTest extends \PHPUnit_Framework_TestCase
+class UniversalTest extends YoloTestCase
 {
     /** @test */
     function unifiedTheoryOfYolo()
