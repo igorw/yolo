@@ -39,11 +39,7 @@ class selfie
      */
     function friends($friends)
     {
-        if(is_object($friends)) {
-            $this->add_friend($friends);
-        } else {
             $this->add_friend((object)$friends);
-        }
     }
 
     private function add_friend($friend)
