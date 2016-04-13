@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: praca
- * Date: 25.03.16
- * Time: 09:51
- */
 
 namespace yolo;
 
