@@ -7,6 +7,8 @@ before_script:
     - composer install --dev --prefer-source --ignore-platform-reqs
 
 php:
+  - nightly
+  - 7.1
   - 7
   - hhvm
 
